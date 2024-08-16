@@ -1,0 +1,1 @@
+[{"x":["valid_mrr","test_mrr"],"y":[0.18273548781871796,0.18273548781871796],"type":"bar","name":"cosine_similarity_ogbn-arxiv"},{"x":["valid_mrr","test_mrr"],"y":[0.3130128085613251,0.3118150234222412],"type":"bar","name":"common_neighbor_arxiv"},{"x":["valid_mrr","test_mrr"],"y":[0.5004456639289856,0.503133237361908],"type":"bar","name":"common_neighbor_citation_2"}]

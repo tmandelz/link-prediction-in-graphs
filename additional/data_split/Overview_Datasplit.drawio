@@ -1,0 +1,169 @@
+<mxfile host="Electron" modified="2024-04-15T20:40:22.327Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="E8n-wnLY_09nXpLgx0Yb" version="21.1.2" type="device">
+  <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
+    <mxGraphModel dx="2363" dy="1380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-13" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;Validation&lt;/b&gt;&lt;b&gt;-neg&lt;/b&gt;&lt;br&gt;(11&#39;152, (11&#39;152,1000))&lt;br&gt;(ogbn-arxiv)&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1275" y="380" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;" parent="1" source="oy7Zo6DhRCW7qj9CpCB3-3" target="kIvwkOcftFBGyBZxoerE-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="oy7Zo6DhRCW7qj9CpCB3-3" target="kIvwkOcftFBGyBZxoerE-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Zo6DhRCW7qj9CpCB3-3" value="&lt;font style=&quot;font-size: 28px;&quot;&gt;Datenset - ogbn-arxiv&lt;br&gt;(169&#39;343, 1&#39;166&#39;243)&lt;br&gt;&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="40" y="300" width="450" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="oy7Zo6DhRCW7qj9CpCB3-4" value="&lt;font style=&quot;font-size: 18px&quot;&gt;&lt;span style=&quot;font-size: 18px&quot;&gt;&lt;b&gt;Pretrain&lt;/b&gt;&lt;/span&gt;&lt;br style=&quot;font-size: 18px&quot;&gt;&lt;span&gt;(&lt;/span&gt;&lt;span class=&quot;ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak&quot; dir=&quot;ltr&quot;&gt;1&#39;079&#39;908,&amp;nbsp;&lt;/span&gt;9&#39;744&#39;382&lt;span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;ogbn-papers100M&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;" parent="1" vertex="1">
+          <mxGeometry x="650" y="1555" width="400" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Train&lt;/b&gt;&lt;br&gt;(147&#39;230,&amp;nbsp;1&#39;110&#39;851)&lt;br&gt;(ogbn-arxiv)&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=center;" parent="1" vertex="1">
+          <mxGeometry x="710" y="170" width="300" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="kIvwkOcftFBGyBZxoerE-3" target="kIvwkOcftFBGyBZxoerE-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="kIvwkOcftFBGyBZxoerE-3" target="DBZsah9PMcVBtdM9_Nkq-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1240" y="635" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-3" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Evaluation&lt;/b&gt;&lt;br&gt;(11&#39;152, 22&#39;304)&lt;br&gt;(ogbn-arxiv)&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="710" y="510" width="300" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-5" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Validation&lt;/b&gt;&lt;br&gt;(11&#39;152, 11&#39;152)&lt;br&gt;(ogbn-arxiv)&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1275" y="620" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-9" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Test&lt;/b&gt;&lt;br&gt;(11&#39;152,&amp;nbsp;11&#39;152)&lt;br&gt;(ogbn-arxiv)&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1275" y="860" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="kIvwkOcftFBGyBZxoerE-3" target="kIvwkOcftFBGyBZxoerE-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1090" y="790" as="sourcePoint" />
+            <mxPoint x="1290" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-12" value="&lt;h1 style=&quot;font-size: 32px;&quot;&gt;&lt;font style=&quot;font-size: 32px;&quot;&gt;Datensatz Split&lt;/font&gt;&lt;/h1&gt;&lt;font style=&quot;font-size: 32px;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;(Anzahl Knoten, Anzahl Kanten)&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Datensatzname&lt;/span&gt;&lt;/div&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;" parent="1" vertex="1">
+          <mxGeometry x="120" y="40" width="540" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="kIvwkOcftFBGyBZxoerE-13" target="oy7Zo6DhRCW7qj9CpCB3-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kIvwkOcftFBGyBZxoerE-13" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 28px;&quot;&gt;Datenset -&amp;nbsp;ogbn-papers100M)(111&#39;059&#39;956, 1&#39;615&#39;685&#39;872)&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1530" width="450" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=1 1;" parent="1" source="DBZsah9PMcVBtdM9_Nkq-1" target="kIvwkOcftFBGyBZxoerE-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Alle Nodes&amp;nbsp;(Papers)&lt;br&gt;&amp;nbsp;und deren Kanten welche &lt;b&gt;vor 2019&lt;/b&gt; publiziert wurden.&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="760" y="10" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" parent="1" source="DBZsah9PMcVBtdM9_Nkq-4" target="kIvwkOcftFBGyBZxoerE-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1183" y="440" />
+              <mxPoint x="860" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-4" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Alle Nodes&amp;nbsp;(Papers)&lt;br&gt;&amp;nbsp;und deren Kanten welche&lt;b&gt; in oder nach&lt;/b&gt; &lt;b&gt;2019 &lt;/b&gt;publiziert wurden. Knoten muss mehr &lt;b&gt;zwei oder mehr Kanten&lt;/b&gt; haben.&lt;br&gt;&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1070" y="10" width="225" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" parent="1" source="DBZsah9PMcVBtdM9_Nkq-6" target="kIvwkOcftFBGyBZxoerE-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" parent="1" source="DBZsah9PMcVBtdM9_Nkq-6" target="kIvwkOcftFBGyBZxoerE-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-6" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Je eine &lt;/b&gt;zufällige Kante pro Knoten.&lt;/span&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1460" y="10" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" parent="1" source="DBZsah9PMcVBtdM9_Nkq-10" target="oy7Zo6DhRCW7qj9CpCB3-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="1510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-10" value="&lt;font style=&quot;font-size: 14px&quot;&gt;Alle Nodes&amp;nbsp;(Papers)&lt;br&gt;&amp;nbsp;und deren Kanten welche&lt;b&gt; vor &lt;/b&gt;&lt;b&gt;2017&amp;nbsp;&lt;/b&gt;publiziert wurden. Knoten dürfen &lt;b&gt;nicht &lt;/b&gt;aus dem &lt;b&gt;arxiv CS Archiv&lt;/b&gt; sein und&amp;nbsp;&lt;span class=&quot;ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak&quot; dir=&quot;ltr&quot;&gt;müssen aus dem a&lt;b&gt;rxiv Archiv&lt;/b&gt; sein.&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="737.5" y="1290" width="225" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-16" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Test-neg&lt;/b&gt;&lt;br&gt;(11&#39;152, (11&#39;152,1000))&lt;br&gt;(ogbn-arxiv)&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1275" y="1100" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=3;" parent="1" source="kIvwkOcftFBGyBZxoerE-3" target="DBZsah9PMcVBtdM9_Nkq-16" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1010" y="630" as="sourcePoint" />
+            <mxPoint x="1300" y="990" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DBZsah9PMcVBtdM9_Nkq-19" target="DBZsah9PMcVBtdM9_Nkq-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1800" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1800" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-19" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Je 1000&amp;nbsp;zufällige nicht-existierende &lt;/b&gt;Kanten pro Knoten.&lt;/span&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="1700" y="10" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="DBZsah9PMcVBtdM9_Nkq-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=1.008;entryY=0.528;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="1" source="DBZsah9PMcVBtdM9_Nkq-19" target="DBZsah9PMcVBtdM9_Nkq-16" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1810" y="140" as="sourcePoint" />
+            <mxPoint x="1500" y="990" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1800" y="1210" />
+              <mxPoint x="1492" y="1210" />
+              <mxPoint x="1492" y="1206" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8f7FmHir4usAq6fZGoY-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="kIvwkOcftFBGyBZxoerE-1" target="DBZsah9PMcVBtdM9_Nkq-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="460" as="sourcePoint" />
+            <mxPoint x="720" y="305" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1375" y="295" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VVx2se1u-HFRKgwkV1f8-1" value="&lt;font style=&quot;font-size: 18px&quot;&gt;&lt;span style=&quot;font-size: 18px&quot;&gt;&lt;b&gt;Validation&lt;/b&gt;&lt;/span&gt;&lt;br style=&quot;font-size: 18px&quot;&gt;&lt;span&gt;(&lt;/span&gt;&lt;span class=&quot;ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak&quot; dir=&quot;ltr&quot;&gt;76&#39;664,&amp;nbsp;&lt;/span&gt;&lt;span class=&quot;ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak&quot; dir=&quot;ltr&quot;&gt;76&#39;664&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;ogbn-papers100M&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;" parent="1" vertex="1">
+          <mxGeometry x="1250" y="1805" width="250" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="VVx2se1u-HFRKgwkV1f8-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="kIvwkOcftFBGyBZxoerE-13" target="VVx2se1u-HFRKgwkV1f8-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="1690" as="sourcePoint" />
+            <mxPoint x="660" y="1690" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="560" y="1680" />
+              <mxPoint x="560" y="1930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VVx2se1u-HFRKgwkV1f8-3" value="&lt;font style=&quot;font-size: 14px&quot;&gt;Alle Nodes&amp;nbsp;(Papers)&lt;br&gt;&amp;nbsp;und deren Kanten welche&lt;b&gt;&amp;nbsp;im Jahr 2018&lt;/b&gt;&lt;b&gt;&amp;nbsp;&lt;/b&gt;publiziert wurden. Knoten dürfen &lt;b&gt;nicht &lt;/b&gt;aus dem &lt;b&gt;arxiv CS Archiv&lt;/b&gt; sein und&amp;nbsp;&lt;span class=&quot;ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak&quot; dir=&quot;ltr&quot;&gt;müssen aus dem a&lt;b&gt;rxiv Archiv&lt;/b&gt; sein.&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="1262.5" y="1420" width="225" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="VVx2se1u-HFRKgwkV1f8-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="VVx2se1u-HFRKgwkV1f8-3" target="VVx2se1u-HFRKgwkV1f8-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1020" y="2250" as="targetPoint" />
+            <mxPoint x="1020" y="2125" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B_pcu1N6jxmN99Zgr39y-2" value="&lt;font style=&quot;font-size: 18px&quot;&gt;&lt;span style=&quot;font-size: 18px&quot;&gt;&lt;b&gt;Validation-neg&lt;/b&gt;&lt;/span&gt;&lt;br style=&quot;font-size: 18px&quot;&gt;&lt;span&gt;(&lt;/span&gt;&lt;span class=&quot;ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak&quot; dir=&quot;ltr&quot;&gt;76&#39;664,&amp;nbsp;&lt;/span&gt;(76&#39;664,1000)&lt;span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span&gt;(&lt;/span&gt;&lt;span&gt;ogbn-papers100M&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="2080" width="250" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="B_pcu1N6jxmN99Zgr39y-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1" source="kIvwkOcftFBGyBZxoerE-13" target="B_pcu1N6jxmN99Zgr39y-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="1690" as="sourcePoint" />
+            <mxPoint x="1260" y="1940" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="560" y="1680" />
+              <mxPoint x="560" y="2205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

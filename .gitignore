@@ -1,0 +1,17 @@
+﻿dataset/*
+Pipfile.lock
+.vscode
+additional/data_split/.$Overview_Datasplit.drawio.bkp
+additional/data_split/.$Overview_Datasplit.drawio.dtmp
+*__pycache__*
+additional/data_split/.$Overview_Datasplit.drawio.dtmp
+additional/data_split/.$Overview_Datasplit.drawio.bkp
+EDA/additional/data_split/~$Overview_Datasplit.drawio.bkp
+EDA/additional/data_split/~$Overview_Datasplit.drawio.dtmp
+EDA/additional/experiments/~$Overview_Experiments.drawio.bkp
+models_saved/umap*
+models_saved/random_forest*
+EDA/sample_data_for_evaluation_build/*.pt
+EDA/sample_data_for_evaluation_build/*.pth
+temp/*.png
+temp/*.npy

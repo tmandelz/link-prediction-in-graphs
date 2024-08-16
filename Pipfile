@@ -1,0 +1,34 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+torch = "*"
+torch-geometric = "*"
+torchvision = "*"
+torchaudio = "*"
+pandas = "*"
+seaborn = "*"
+matplotlib = "*"
+numpy = "*"
+wandb = "*"
+tqdm = "*"
+scikit-learn = "*"
+jupyter = "*"
+ipykernel = "*"
+ogb = "*"
+networkx = "*"
+zstandard = "*"
+hdbscan = "*"
+umap-learn = "*"
+joblib = "*"
+comet-ml = "*"
+torch-sparse = "*"
+torch-scatter = "*"
+captum = "*"
+accelerate = "*"
+
+[dev-packages]
+
+[requires]
