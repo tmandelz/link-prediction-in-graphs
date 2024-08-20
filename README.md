@@ -26,6 +26,8 @@ Our findings reveal significant improvements in model performance, with enhanced
 
 This thesis contributes to a deeper understanding of GNN capabilities and transfer learning's impact, offering insights into their practical applications and optimisation.
 
+* [Thesis](BA_Thesis_24FS_I4DS26_GNN_signed.pdf)
+
 ## Methods
 
 * Graph Neural Networks (GNN)
