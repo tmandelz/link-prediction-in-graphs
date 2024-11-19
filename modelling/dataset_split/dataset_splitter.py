@@ -9,7 +9,8 @@ sys.path.append('modelling/')
 from dataset_split.dataset_loader import PygLinkPropPredDataset, PygNodePropPredDataset
 
 class Dataset_Splitter:
-    def __init__(self) -> None:
+    def __init__(self,sample_size) -> None:
+        self.sample_size = sample_size
         pass
 
     def load_dataset(self, dataset_name: str) -> dict:
@@ -171,9 +172,9 @@ class Dataset_Splitter:
 
         # sample negative edges for valid and test set
         target_nodes_neg_valid = self.get_negative_edges(edge_index, list(
-            zip(validation_edges_sampled[0].tolist(), validation_edges_sampled[1].tolist())))
+            zip(validation_edges_sampled[0].tolist(), validation_edges_sampled[1].tolist())),self.sample_size)
         target_nodes_neg_test = self.get_negative_edges(edge_index, list(
-            zip(test_edges_sampled[0].tolist(), test_edges_sampled[1].tolist())))
+            zip(test_edges_sampled[0].tolist(), test_edges_sampled[1].tolist())),self.sample_size)
 
         # Separate the remaining edges for training
         # Concatenate validation_pairs and test_pairs along the second dimension (columns)

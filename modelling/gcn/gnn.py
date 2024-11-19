@@ -734,6 +734,8 @@ def main():
     parser.add_argument('--model_path', type=str, default=None) # default None
     parser.add_argument('--predictor_path', type=str, default=None) # default None
     parser.add_argument('--freeze_model', type=str2bool, default=False, choices=[False, True]) # default False
+    parser.add_argument('--neg_sample_size', type=int, default=1000) # default 1000
+
 
 
     args = parser.parse_args()
@@ -775,7 +777,7 @@ def main():
         run_iterator = range(args.runs)
 
     # load dataset
-    ds_split = Dataset_Splitter()
+    ds_split = Dataset_Splitter(args.neg_sample_size)
     dataset = ds_split.load_dataset(args.dataset)
     split_edge, edge_index = ds_split.get_edges_split(dataset)
 
