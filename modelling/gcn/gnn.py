@@ -6,7 +6,7 @@ import ast
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import numpy as np
-from torch_geometric.nn import GCNConv
+from torch_geometric.nn import GCNConv, SAGEConv
 from torch.nn import Linear
 from ogb.linkproppred import Evaluator
 import seaborn as sns
@@ -50,6 +50,30 @@ class NGNN_GCNConv(torch.nn.Module):
         x = self.fc2(x)
         return x
 
+class SAGE(torch.nn.Module):
+    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
+                 dropout):
+        super(SAGE, self).__init__()
+
+        self.convs = torch.nn.ModuleList()
+        self.convs.append(SAGEConv(in_channels, hidden_channels))
+        for _ in range(num_layers - 2):
+            self.convs.append(SAGEConv(hidden_channels, hidden_channels))
+        self.convs.append(SAGEConv(hidden_channels, out_channels))
+
+        self.dropout = dropout
+
+    def reset_parameters(self):
+        for conv in self.convs:
+            conv.reset_parameters()
+
+    def forward(self, x, adj_t):
+        for conv in self.convs[:-1]:
+            x = conv(x, adj_t)
+            x = F.relu(x)
+            x = F.dropout(x, p=self.dropout, training=self.training)
+        x = self.convs[-1](x, adj_t)
+        return x
 
 class GCN_NGNN(torch.nn.Module):
     def __init__(
@@ -604,7 +628,10 @@ def init_gnn_model(args: dict, data: torch.tensor, device: str):
         model = GCN_NGNN(data.num_features, args.hidden_channels,
                              args.hidden_channels, args.num_layers, args.dropout, args.ngnn_type).to(device)
     elif args.model_architecture == "SAGE":
-        raise NotImplementedError("# TODO: implement")
+        model = SAGE(data.num_features, args.hidden_channels,
+                     args.hidden_channels, args.num_layers,
+                     args.dropout).to(device)
+
 
     return model
 
@@ -723,7 +750,7 @@ def main():
     parser.add_argument('--project_name', type=str, default="link-prediction-development")
     parser.add_argument('--run_name', type=str, default="test_ngnn")
     parser.add_argument('--dataset', type=str, default="ogbn-arxiv") # default ogbn-arxiv
-    parser.add_argument('--model_architecture', type=str, default="GCN_NGNN", choices=['GCN', 'GCN_NGNN'])
+    parser.add_argument('--model_architecture', type=str, default="GCN_NGNN", choices=['GCN', 'GCN_NGNN','SAGE'])
     parser.add_argument('--ngnn_type', type=str, default="input", choices=['input', 'hidden'])
     parser.add_argument('--one_batch_training', type=str2bool, default=False, choices=[False, True]) # default False
     parser.add_argument('--random_seed', type=int, default=12345) # default 12345
@@ -807,9 +834,7 @@ def main():
         deg_inv_sqrt = deg.pow(-0.5)
         deg_inv_sqrt[deg_inv_sqrt == float('inf')] = 0
         adj_t = deg_inv_sqrt.view(-1, 1) * adj_t * deg_inv_sqrt.view(1, -1)
-        data.adj_t = adj_t
-    elif args.model_architecture == "SAGE":
-        raise NotImplementedError("# TODO: implement")
+        data.adj_t = adj_t        
     else: 
         pass
     
