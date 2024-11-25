@@ -50,6 +50,7 @@ class NGNN_GCNConv(torch.nn.Module):
         x = self.fc2(x)
         return x
 
+
 class SAGE(torch.nn.Module):
     def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
                  dropout):
@@ -74,6 +75,7 @@ class SAGE(torch.nn.Module):
             x = F.dropout(x, p=self.dropout, training=self.training)
         x = self.convs[-1](x, adj_t)
         return x
+
 
 class GCN_NGNN(torch.nn.Module):
     def __init__(
@@ -199,7 +201,7 @@ def train(model, predictor: LinkPredictor, data, split_edge, optimizer, batch_si
 
     if one_batch_training:
         dataloader_train = [next(iter(DataLoader(range(source_edge.size(0)), batch_size,
-                                shuffle=False)))]
+                                                 shuffle=False)))]
         torch.manual_seed(seed)
 
     else:
@@ -210,7 +212,7 @@ def train(model, predictor: LinkPredictor, data, split_edge, optimizer, batch_si
         step += 1
 
         optimizer.zero_grad()
-        
+
         # feed forward graph embedding
         h = model(data.x, data.adj_t)
 
@@ -249,7 +251,7 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
         target_neg = split_edge[split]['target_node_neg'].to(h.device)
         return source, target, target_neg
 
-    def test_split_quant(split: str,graph: dict ,nx_graph: nx.classes.digraph.DiGraph, final_evaluation: bool):
+    def test_split_quant(split: str, graph: dict, nx_graph: nx.classes.digraph.DiGraph, final_evaluation: bool):
         source, target, target_neg = get_test_split(split)
         # predicting the positive sampled links (ground-truth)
         pos_preds = []
@@ -271,7 +273,6 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
         pos_loss = -torch.log(pos_pred + 1e-15).mean()
         neg_loss = -torch.log(1 - neg_pred.view(-1) + 1e-15).mean()
 
-
         eval_dict_mrr = evaluator_mrr.eval({
             'y_pred_pos': pos_pred,
             'y_pred_neg': neg_pred,
@@ -287,13 +288,16 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                     dataset = "Validation"
                 else:
                     dataset = "Test"
-                jp = sns.jointplot(x=variable, y=mrr, kind='scatter', alpha=0.3,marginal_kws={'bins': 50, 'fill': True})
-                jp.figure.suptitle(f'{dataset}: reciprocal rank vs {variable_name} \n n = {len(mrr)}',fontsize = 20, y=1.05)
+                jp = sns.jointplot(x=variable, y=mrr, kind='scatter', alpha=0.3, marginal_kws={
+                                   'bins': 50, 'fill': True})
+                jp.figure.suptitle(f'{dataset}: reciprocal rank vs {
+                                   variable_name} \n n = {len(mrr)}', fontsize=20, y=1.05)
                 jp.set_axis_labels(f'{variable_name}', 'reciprocal rank')
                 plot_path = f"./temp/{dataset}_reciprocal_rank_vs_{variable_name}.png"
                 jp.savefig(plot_path)
                 plt.close(jp.figure)
-                experiment.log_image(plot_path, name=f'{dataset}: reciprocal rank vs {variable_name}')                
+                experiment.log_image(plot_path, name=f'{
+                                     dataset}: reciprocal rank vs {variable_name}')
 
             def calculate_similarity_of_neighbours(train_edges, evaluation_nodes, mrr_list):
                 adjacency_list = {}
@@ -302,22 +306,26 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                     if source not in adjacency_list:
                         adjacency_list[source] = []
                     adjacency_list[source].append(target)
-                sub_dict = {key: adjacency_list[key] for key in evaluation_nodes if key in adjacency_list}
+                sub_dict = {
+                    key: adjacency_list[key] for key in evaluation_nodes if key in adjacency_list}
                 mrr_vs_cosine_similarity = []
                 for node in evaluation_nodes:
                     if node in adjacency_list:
                         mrr_vs_cosine_similarity.append([mrr_list[np.where(node == evaluation_nodes)][0],
-                                                cosine_similarity(np.array(graph.x[sub_dict[node]].cpu()), np.array([graph.x[node].cpu()])).mean()])
-                        
-                return np.array(mrr_vs_cosine_similarity)[:,1],np.array(mrr_vs_cosine_similarity)[:,0]  
+                                                         cosine_similarity(np.array(graph.x[sub_dict[node]].cpu()), np.array([graph.x[node].cpu()])).mean()])
 
+                return np.array(mrr_vs_cosine_similarity)[:, 1], np.array(mrr_vs_cosine_similarity)[:, 0]
 
-            in_degrees = np.array(list(dict(nx_graph.in_degree()).values()))[evaluation_nodes]
-            out_degrees = np.array(list(dict(nx_graph.out_degree()).values()))[evaluation_nodes]
-            
-            clustering_coefficients_for_plotting = [v for (k,v) in nx.clustering(nx_graph,evaluation_nodes).items()]
+            in_degrees = np.array(list(dict(nx_graph.in_degree()).values()))[
+                evaluation_nodes]
+            out_degrees = np.array(list(dict(nx_graph.out_degree()).values()))[
+                evaluation_nodes]
 
-            similarity,mrr = calculate_similarity_of_neighbours(train_edges,evaluation_nodes,mrr_list)
+            clustering_coefficients_for_plotting = [
+                v for (k, v) in nx.clustering(nx_graph, evaluation_nodes).items()]
+
+            similarity, mrr = calculate_similarity_of_neighbours(
+                train_edges, evaluation_nodes, mrr_list)
 
             plot_variable_against_mrr(
                 in_degrees, mrr_list, "Indegree", validation=validation)
@@ -333,16 +341,21 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                 dataset = "Validation"
             else:
                 dataset = "Test"
-            nodes_in_strong_connected_components = set.union(*(set(s) for s in nx.strongly_connected_components(nx_graph) if len(s)!=1))
-            nodes_in_strong = [node in nodes_in_strong_connected_components for node in evaluation_nodes]
+            nodes_in_strong_connected_components = set.union(
+                *(set(s) for s in nx.strongly_connected_components(nx_graph) if len(s) != 1))
+            nodes_in_strong = [
+                node in nodes_in_strong_connected_components for node in evaluation_nodes]
             mrr_strong = mrr_list[nodes_in_strong]
             mrr_not_strong = mrr_list[~np.array(nodes_in_strong)]
 
             plt.figure(figsize=(10, 6))
             weights_strong = np.ones_like(mrr_strong) / len(mrr_strong)
-            weights_not_strong = np.ones_like(mrr_not_strong) / len(mrr_not_strong)
-            plt.hist(np.array(mrr_strong), bins=30, weights=weights_strong, alpha=0.5, color="blue", label=f'Strong Connected Components n = {len(mrr_strong)} ')
-            plt.hist(np.array(mrr_not_strong), bins=30, weights=weights_not_strong, alpha=0.5, color="red", label=f'Not in Strong Connected Components n = {len(mrr_not_strong)}')
+            weights_not_strong = np.ones_like(
+                mrr_not_strong) / len(mrr_not_strong)
+            plt.hist(np.array(mrr_strong), bins=30, weights=weights_strong, alpha=0.5,
+                     color="blue", label=f'Strong Connected Components n = {len(mrr_strong)} ')
+            plt.hist(np.array(mrr_not_strong), bins=30, weights=weights_not_strong, alpha=0.5,
+                     color="red", label=f'Not in Strong Connected Components n = {len(mrr_not_strong)}')
             plt.xlabel('reciprocal rank')
             plt.ylabel('Density')
             plt.title(f'{dataset}: reciprocal rank Distribution')
@@ -350,7 +363,8 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             plot_path = f"./temp/{dataset}_reciprocal_rank_Distribution.png"
             plt.savefig(plot_path)
             plt.close()
-            experiment.log_image(plot_path, name=f'{dataset}: reciprocal rank Distribution')
+            experiment.log_image(plot_path, name=f'{
+                                 dataset}: reciprocal rank Distribution')
 
         def calc_cosine_similarities(pos_pred, neg_pred, target_neg, source_unique, graph, target_val):
             graph.x = graph.x.cpu()
@@ -358,24 +372,24 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             selection_pos = (pos_pred > neg_pred.max(axis=1))
             proba_pos = pos_pred[selection_pos]
             positive_cosine_similarities = [cosine_similarity(graph.x[source].reshape(1, -1),
-                            graph.x[target].reshape(1, -1))[0][0] 
-            for source,target 
-            in zip(source_unique[selection_pos],target_val[selection_pos])]
+                                                              graph.x[target].reshape(1, -1))[0][0]
+                                            for source, target
+                                            in zip(source_unique[selection_pos], target_val[selection_pos])]
 
             probas_neg = neg_pred[~selection_pos].max(axis=1)
             neg_cos_sims = [cosine_similarity(graph.x[source].reshape(1, -1),
-                                                            graph.x[target].reshape(1, -1))[0][0] 
-                                            for source,target 
-                                            in zip(source_unique[~selection_pos],
-                                                    target_neg[~selection_pos,neg_pred[~selection_pos].argmax(axis=1)])]
+                                              graph.x[target].reshape(1, -1))[0][0]
+                            for source, target
+                            in zip(source_unique[~selection_pos],
+                                   target_neg[~selection_pos, neg_pred[~selection_pos].argmax(axis=1)])]
             return proba_pos, positive_cosine_similarities, probas_neg, neg_cos_sims
-   
+
         def visualize_cosine_similarities(pos_cos_sims, neg_cos_sims, validation=True):
             if validation:
-                    dataset = "Validation"
+                dataset = "Validation"
             else:
-                    dataset = "Test"
-                    
+                dataset = "Test"
+
             weights_positive = np.ones_like(pos_cos_sims) / len(pos_cos_sims)
             weights_negative = np.ones_like(neg_cos_sims) / len(neg_cos_sims)
 
@@ -383,8 +397,10 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             overall_max = max(np.max(pos_cos_sims), np.max(neg_cos_sims))
 
             plt.figure(figsize=(10, 6))
-            plt.hist(pos_cos_sims, bins=50, range=(overall_min, overall_max), weights=weights_positive, alpha=0.5, color="blue", label=f'Correct predicted n = {len(pos_cos_sims)}')
-            plt.hist(neg_cos_sims, bins=50, range=(overall_min, overall_max), weights=weights_negative, alpha=0.5, color="red", label=f'Wrong predicted n = {len(neg_cos_sims)}')
+            plt.hist(pos_cos_sims, bins=50, range=(overall_min, overall_max), weights=weights_positive,
+                     alpha=0.5, color="blue", label=f'Correct predicted n = {len(pos_cos_sims)}')
+            plt.hist(neg_cos_sims, bins=50, range=(overall_min, overall_max), weights=weights_negative,
+                     alpha=0.5, color="red", label=f'Wrong predicted n = {len(neg_cos_sims)}')
             plt.xlabel('Cosine Similarities')
             plt.ylabel('Density')
             plt.title(f'{dataset}:Distribution of Cosine Similarities')
@@ -392,7 +408,8 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             plot_path = f"./temp/{dataset}Distribution_of_Cosine_Similarities.png"
             plt.savefig(plot_path)
             plt.close()
-            experiment.log_image(plot_path, name=f'{dataset}: Distribution of Cosine Similarities')    
+            experiment.log_image(plot_path, name=f'{
+                                 dataset}: Distribution of Cosine Similarities')
 
         def visualize_proba_vs_cosine_similarity(probas_pos, pos_cos_sims, probas_neg, neg_cos_sims, validation=True):
             if validation:
@@ -400,8 +417,10 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             else:
                 dataset = "Test"
             plt.figure(figsize=(10, 6))
-            plt.scatter(probas_neg, neg_cos_sims, color='red', alpha=0.3, label=f'Wrong predicted n = {len(probas_neg)}', s = 10)
-            plt.scatter(probas_pos, pos_cos_sims, color='blue', alpha=0.3, label=f'Correct predicted n = {len(probas_pos)}',s = 10)
+            plt.scatter(probas_neg, neg_cos_sims, color='red', alpha=0.3,
+                        label=f'Wrong predicted n = {len(probas_neg)}', s=10)
+            plt.scatter(probas_pos, pos_cos_sims, color='blue', alpha=0.3,
+                        label=f'Correct predicted n = {len(probas_pos)}', s=10)
             plt.title(f'{dataset}: Word2vec Similarity of Top1 Predicted Node')
             plt.xlabel('Probability of Prediction')
             plt.ylabel('Cosine Similarities')
@@ -410,7 +429,8 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             plot_path = f"./temp/{dataset}Word2vec_Similarity_of_Top1_Predicted_Node.png"
             plt.savefig(plot_path)
             plt.close()
-            experiment.log_image(plot_path, name=f'{dataset}: Word2vec Similarity of Top1 Predicted Node') 
+            experiment.log_image(plot_path, name=f'{
+                                 dataset}: Word2vec Similarity of Top1 Predicted Node')
 
         def visualise_roc_curve(eval_dict_roc_auc, validation=True):
             if validation:
@@ -421,8 +441,10 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                 # Plot ROC curve
                 plt.figure(figsize=(10, 6))
                 auc = eval_dict_roc_auc['rocauc']
-                plt.plot(eval_dict_roc_auc['fpr'], eval_dict_roc_auc['tpr'], color='blue', label=f'ROC curve (AUC = {auc:.2f})')
-                plt.plot([0, 1], [0, 1], color='red', linestyle='--')  # Diagonal line
+                plt.plot(eval_dict_roc_auc['fpr'], eval_dict_roc_auc['tpr'],
+                         color='blue', label=f'ROC curve (AUC = {auc:.2f})')
+                plt.plot([0, 1], [0, 1], color='red',
+                         linestyle='--')  # Diagonal line
                 plt.xlabel('False Positive Rate')
                 plt.ylabel('True Positive Rate')
                 plt.title('Receiver Operating Characteristic (ROC) Curve')
@@ -431,8 +453,7 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                 plot_path = f"./temp/{dataset}roc_curve.png"
                 plt.savefig(plot_path)
                 plt.close()
-                experiment.log_image(plot_path, name=f'{dataset}: roc_curve') 
-
+                experiment.log_image(plot_path, name=f'{dataset}: roc_curve')
 
         if final_evaluation:
             if split == "valid":
@@ -464,17 +485,16 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                     np.unique(np.array(source.clone().cpu())),
                     graph,
                     np.array(target.clone().cpu()))
-                
+
                 visualize_cosine_similarities(
                     pos_cos_sim, neg_cos_sim, validation=False)
                 visualize_proba_vs_cosine_similarity(
                     p_pos, pos_cos_sim, p_neg, neg_cos_sim, validation=False)
                 visualise_roc_curve(eval_dict_roc_auc, validation=False)
-                
 
-        return eval_dict_mrr['mrr_list'], eval_dict_roc_auc, (torch.unique(source), target, target_neg, pos_pred, neg_pred),pos_loss,neg_loss
+        return eval_dict_mrr['mrr_list'], eval_dict_roc_auc, (torch.unique(source), target, target_neg, pos_pred, neg_pred), pos_loss, neg_loss
 
-    def test_split_quali(quali_evaluator: Quali_Evaluator, split: str, mrr_list: torch.tensor, graph, n_quali_edge_predictions: int, neg_pred, experiment, model, predictor,adj_t):
+    def test_split_quali(quali_evaluator: Quali_Evaluator, split: str, mrr_list: torch.tensor, graph, n_quali_edge_predictions: int, neg_pred, experiment, model, predictor, adj_t):
         """quali eval for a split, 
 
         Args:
@@ -500,11 +520,14 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             topn += 1
             if quali_evaluator.eval_n_hop_computational_graph > 0:
                 quali_evaluator.calculate_and_visualize_computational_graph(f"{split} Top-{topn} Prediction, 1-Hop",
-                                                                            int(src.cpu()),
-                                                                            np.unique(source.cpu()),
+                                                                            int(src.cpu(
+                                                                            )),
+                                                                            np.unique(
+                                                                                source.cpu()),
                                                                             neg_pred,
                                                                             target_neg.cpu(),
-                                                                            int(dst.cpu()),
+                                                                            int(dst.cpu(
+                                                                            )),
                                                                             adj_t,
                                                                             graph,
                                                                             mrr_list,
@@ -514,11 +537,14 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                                                                             one_hop=True)
             if quali_evaluator.eval_n_hop_computational_graph > 1:
                 quali_evaluator.calculate_and_visualize_computational_graph(f"{split} Top-{topn} Prediction, 2-Hop",
-                                                                            int(src.cpu()),
-                                                                            np.unique(source.cpu()),
+                                                                            int(src.cpu(
+                                                                            )),
+                                                                            np.unique(
+                                                                                source.cpu()),
                                                                             neg_pred,
                                                                             target_neg.cpu(),
-                                                                            int(dst.cpu()),
+                                                                            int(dst.cpu(
+                                                                            )),
                                                                             adj_t,
                                                                             graph,
                                                                             mrr_list,
@@ -527,17 +553,19 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                                                                             experiment,
                                                                             one_hop=False)
 
-            
         flopn = 0
         for (src, dst) in flopn_edges:
             flopn += 1
             if quali_evaluator.eval_n_hop_computational_graph > 0:
                 quali_evaluator.calculate_and_visualize_computational_graph(f"{split} Flop-{flopn} Prediction, 1-Hop",
-                                                                            int(src.cpu()),
-                                                                            np.unique(source.cpu()),
+                                                                            int(src.cpu(
+                                                                            )),
+                                                                            np.unique(
+                                                                                source.cpu()),
                                                                             neg_pred,
                                                                             target_neg.cpu(),
-                                                                            int(dst.cpu()),
+                                                                            int(dst.cpu(
+                                                                            )),
                                                                             adj_t,
                                                                             graph,
                                                                             mrr_list,
@@ -547,11 +575,14 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                                                                             one_hop=True)
             if quali_evaluator.eval_n_hop_computational_graph > 1:
                 quali_evaluator.calculate_and_visualize_computational_graph(f"{split} Flop-{flopn} Prediction, 2-Hop",
-                                                                            int(src.cpu()),
-                                                                            np.unique(source.cpu()),
+                                                                            int(src.cpu(
+                                                                            )),
+                                                                            np.unique(
+                                                                                source.cpu()),
                                                                             neg_pred,
                                                                             target_neg.cpu(),
-                                                                            int(dst.cpu()),
+                                                                            int(dst.cpu(
+                                                                            )),
                                                                             adj_t,
                                                                             graph,
                                                                             mrr_list,
@@ -559,39 +590,42 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                                                                             predictor,
                                                                             experiment,
                                                                             one_hop=False)
-            
+
     def log_arrays(path: str, variable: np.array, experiment=experiment):
         np.save("./temp/array_for_asset.npy", variable)
         experiment.log_asset("./temp/array_for_asset.npy", file_name=path)
-      
+
     source = split_edge["train"]['source_node'].to(h.device)
     target = split_edge["train"]['target_node'].to(h.device)
-    train_edges = np.vstack((np.array([source.cpu()]),np.array([target.cpu()])))
+    train_edges = np.vstack(
+        (np.array([source.cpu()]), np.array([target.cpu()])))
     nx_graph = nx.DiGraph()
     nx_graph.add_nodes_from(range(data.x.shape[0]))
     nx_graph.add_edges_from(train_edges.T)
-    
 
-    train_mrr_list, train_eval_dict_roc_auc, _, train_pos_loss,train_neg_loss= test_split_quant('eval_train', data, nx_graph, final_evaluation=final_evaluation)
-    valid_mrr_list, valid_eval_dict_roc_auc, prediction_valid,valid_pos_loss,valid_neg_loss = test_split_quant('valid', data, nx_graph, final_evaluation=final_evaluation)
-    test_mrr_list, test_eval_dict_roc_auc, prediction_test,test_pos_loss,test_neg_loss = test_split_quant('test', data, nx_graph, final_evaluation=final_evaluation)
+    train_mrr_list, train_eval_dict_roc_auc, _, train_pos_loss, train_neg_loss = test_split_quant(
+        'eval_train', data, nx_graph, final_evaluation=final_evaluation)
+    valid_mrr_list, valid_eval_dict_roc_auc, prediction_valid, valid_pos_loss, valid_neg_loss = test_split_quant(
+        'valid', data, nx_graph, final_evaluation=final_evaluation)
+    test_mrr_list, test_eval_dict_roc_auc, prediction_test, test_pos_loss, test_neg_loss = test_split_quant(
+        'test', data, nx_graph, final_evaluation=final_evaluation)
 
     log_arrays(f"reciprocal_ranks/train/epoch_{epoch}", train_mrr_list)
     log_arrays(f"reciprocal_ranks/valid/epoch_{epoch}", valid_mrr_list)
     log_arrays(f"reciprocal_ranks/test/epoch_{epoch}", test_mrr_list)
-    
+
     if final_evaluation:
         asset_names = ("source", "target", "target_neg",
                        "pos_preds", "neg_preds")
 
         test_split_quali(quali_evaluator, 'valid', valid_mrr_list, data,
-                         15, prediction_valid[4], experiment, model, predictor,data.adj_t.cpu())
+                         15, prediction_valid[4], experiment, model, predictor, data.adj_t.cpu())
         for prediction_logging in range(len(prediction_valid)):
             log_arrays(f"prediction_logging/valid/{asset_names[prediction_logging]}.npy",
                        prediction_valid[prediction_logging].cpu())
 
         test_split_quali(quali_evaluator, 'test', test_mrr_list, data,
-                         15, prediction_test[4], experiment, model, predictor,data.adj_t.cpu())
+                         15, prediction_test[4], experiment, model, predictor, data.adj_t.cpu())
         for prediction_logging in range(len(prediction_test)):
             log_arrays(f"prediction_logging/test/{asset_names[prediction_logging]}.npy",
                        prediction_test[prediction_logging].cpu())
@@ -616,7 +650,7 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             log_arrays(f"prediction_logging/test/roc_thresholds.npy",
                        test_eval_dict_roc_auc['thresholds'])
 
-    return train_mrr_list.mean().item(), valid_mrr_list.mean().item(), test_mrr_list.mean().item(), train_eval_dict_roc_auc['rocauc'], valid_eval_dict_roc_auc['rocauc'], test_eval_dict_roc_auc['rocauc'],train_pos_loss,train_neg_loss,valid_pos_loss,valid_neg_loss,test_pos_loss,test_neg_loss
+    return train_mrr_list.mean().item(), valid_mrr_list.mean().item(), test_mrr_list.mean().item(), train_eval_dict_roc_auc['rocauc'], valid_eval_dict_roc_auc['rocauc'], test_eval_dict_roc_auc['rocauc'], train_pos_loss, train_neg_loss, valid_pos_loss, valid_neg_loss, test_pos_loss, test_neg_loss
 
 
 def init_gnn_model(args: dict, data: torch.tensor, device: str):
@@ -626,40 +660,41 @@ def init_gnn_model(args: dict, data: torch.tensor, device: str):
                     args.dropout).to(device)
     elif args.model_architecture == "GCN_NGNN":
         model = GCN_NGNN(data.num_features, args.hidden_channels,
-                             args.hidden_channels, args.num_layers, args.dropout, args.ngnn_type).to(device)
+                         args.hidden_channels, args.num_layers, args.dropout, args.ngnn_type).to(device)
     elif args.model_architecture == "SAGE":
         model = SAGE(data.num_features, args.hidden_channels,
                      args.hidden_channels, args.num_layers,
                      args.dropout).to(device)
 
-
     return model
+
 
 def load_models(args, data, device):
     # init gnn node embedding
     model = init_gnn_model(args, data, device)
     # init model for link prediction
     predictor = LinkPredictor(args.hidden_channels, args.hidden_channels, 1,
-                            args.num_layers, args.dropout).to(device)
-    
-    # load any previous checkpoints 
+                              args.num_layers, args.dropout).to(device)
+
+    # load any previous checkpoints
     if isinstance(args.model_path, str):
         model.load_state_dict(torch.load(args.model_path))
     if isinstance(args.predictor_path, str):
         predictor.load_state_dict(torch.load(args.predictor_path))
     if args.freeze_model:
        for param in model.parameters():
-            param.requires_grad = False 
-    
+           param.requires_grad = False
+
     return model, predictor
 
+
 def init_optimizer(model, predictor, args):
-        # init optimizer
-        optimizer = torch.optim.Adam(
+    # init optimizer
+    optimizer = torch.optim.Adam(
         list(model.parameters()) + list(predictor.parameters()),
         lr=args.lr)
 
-        return optimizer
+    return optimizer
 
 
 def log_hyper_params(experiment: Experiment, args, run_index: int, device):
@@ -696,7 +731,7 @@ def log_hyper_params(experiment: Experiment, args, run_index: int, device):
 
 
 def unzip_test_results(result, loss=None):
-    train_mrr, valid_mrr, test_mrr, train_rocauc, valid_rocauc, test_rocauc,train_pos_loss,train_neg_loss,valid_pos_loss,valid_neg_loss,test_pos_loss,test_neg_loss = result
+    train_mrr, valid_mrr, test_mrr, train_rocauc, valid_rocauc, test_rocauc, train_pos_loss, train_neg_loss, valid_pos_loss, valid_neg_loss, test_pos_loss, test_neg_loss = result
     metrics = {
         "train_mrr": train_mrr,
         "valid_mrr": valid_mrr,
@@ -704,19 +739,20 @@ def unzip_test_results(result, loss=None):
         "train_rocauc": train_rocauc,
         "valid_rocauc": valid_rocauc,
         "test_rocauc": test_rocauc,
-        "train_pos_loss":train_pos_loss,
-        "train_neg_loss":train_neg_loss,
-        "train_loss_for_testing":train_pos_loss+ train_neg_loss,
-        "valid_pos_loss":valid_pos_loss,
-        "valid_neg_loss":valid_neg_loss,
+        "train_pos_loss": train_pos_loss,
+        "train_neg_loss": train_neg_loss,
+        "train_loss_for_testing": train_pos_loss + train_neg_loss,
+        "valid_pos_loss": valid_pos_loss,
+        "valid_neg_loss": valid_neg_loss,
         "valid_loss": valid_pos_loss + valid_neg_loss,
-        "test_pos_loss":test_pos_loss,
-        "test_neg_loss":test_neg_loss,
+        "test_pos_loss": test_pos_loss,
+        "test_neg_loss": test_neg_loss,
         "test_loss": test_pos_loss + test_neg_loss
     }
     if loss is not None:
         metrics["loss_epoch"] = loss
     return metrics
+
 
 def dict_type(arg):
     try:
@@ -724,49 +760,66 @@ def dict_type(arg):
         return ast.literal_eval(arg)
     except ValueError:
         raise argparse.ArgumentTypeError("Invalid dictionary: {}".format(arg))
-    
+
+
 def str2bool(v):
     if isinstance(v, bool):
         return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1',"True"):
+    if v.lower() in ('yes', 'true', 't', 'y', '1', "True"):
         return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0',"False"):
+    elif v.lower() in ('no', 'false', 'f', 'n', '0', "False"):
         return False
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
-    
+
+
 def main():
     parser = argparse.ArgumentParser(description='GCN Trainer')
-    parser.add_argument('--device', type=int, default=0) # default 0
-    parser.add_argument('--num_layers', type=int, default=2) # default 3
-    parser.add_argument('--hidden_channels', type=int, default=512) # default 256
+    parser.add_argument('--device', type=int, default=0)  # default 0
+    parser.add_argument('--num_layers', type=int, default=2)  # default 3
+    parser.add_argument('--hidden_channels', type=int,
+                        default=512)  # default 256
     parser.add_argument('--dropout', type=float, default=0)
-    parser.add_argument('--batch_size', type=int, default=38349) # default 64*1024
-    parser.add_argument('--eval_batch_size', type=int, default=100000) # default 100000
-    parser.add_argument('--eval_n_hop_computational_graph', type=int, default=2)  # default 2
-    parser.add_argument('--lr', type=float, default=0.00004) # default 0.0005
+    parser.add_argument('--batch_size', type=int,
+                        default=38349)  # default 64*1024
+    parser.add_argument('--eval_batch_size', type=int,
+                        default=100000)  # default 100000
+    parser.add_argument('--eval_n_hop_computational_graph',
+                        type=int, default=2)  # default 2
+    parser.add_argument('--lr', type=float, default=0.00004)  # default 0.0005
     parser.add_argument('--epochs', type=int, default=2000)  # default 50
-    parser.add_argument('--runs', type=int, default=1) # default 10
-    parser.add_argument('--project_name', type=str, default="link-prediction-development")
+    parser.add_argument('--runs', type=int, default=1)  # default 10
+    parser.add_argument('--project_name', type=str,
+                        default="link-prediction-development")
     parser.add_argument('--run_name', type=str, default="test_ngnn")
-    parser.add_argument('--dataset', type=str, default="ogbn-arxiv") # default ogbn-arxiv
-    parser.add_argument('--model_architecture', type=str, default="GCN_NGNN", choices=['GCN', 'GCN_NGNN','SAGE'])
-    parser.add_argument('--ngnn_type', type=str, default="input", choices=['input', 'hidden'])
-    parser.add_argument('--one_batch_training', type=str2bool, default=False, choices=[False, True]) # default False
-    parser.add_argument('--random_seed', type=int, default=12345) # default 12345
-    parser.add_argument('--parameter_tuning_algo', type=str, default="random", choices=["random", "grid", "bayes"]) # default random
-    parser.add_argument('--parameter_tuning_param_grid', type=dict_type, default=None) # default None
-    parser.add_argument('--save_model', type=str2bool, default=False, choices=[False, True]) # default False
-    parser.add_argument('--epoch_checkpoints', type=int, default=100) # default False
-    parser.add_argument('--model_path', type=str, default=None) # default None
-    parser.add_argument('--predictor_path', type=str, default=None) # default None
-    parser.add_argument('--freeze_model', type=str2bool, default=False, choices=[False, True]) # default False
-    parser.add_argument('--neg_sample_size', type=int, default=1000) # default 1000
-
-
+    parser.add_argument('--dataset', type=str,
+                        default="ogbn-arxiv")  # default ogbn-arxiv
+    parser.add_argument('--model_architecture', type=str,
+                        default="GCN_NGNN", choices=['GCN', 'GCN_NGNN', 'SAGE'])
+    parser.add_argument('--ngnn_type', type=str,
+                        default="input", choices=['input', 'hidden'])
+    parser.add_argument('--one_batch_training', type=str2bool,
+                        default=False, choices=[False, True])  # default False
+    parser.add_argument('--random_seed', type=int,
+                        default=12345)  # default 12345
+    parser.add_argument('--parameter_tuning_algo', type=str, default="random",
+                        choices=["random", "grid", "bayes"])  # default random
+    parser.add_argument('--parameter_tuning_param_grid',
+                        type=dict_type, default=None)  # default None
+    parser.add_argument('--save_model', type=str2bool,
+                        default=False, choices=[False, True])  # default False
+    parser.add_argument('--epoch_checkpoints', type=int,
+                        default=100)  # default False
+    parser.add_argument('--model_path', type=str, default=None)  # default None
+    parser.add_argument('--predictor_path', type=str,
+                        default=None)  # default None
+    parser.add_argument('--freeze_model', type=str2bool,
+                        default=False, choices=[False, True])  # default False
+    parser.add_argument('--neg_sample_size', type=int,
+                        default=1000)  # default 1000
 
     args = parser.parse_args()
-    
+
     # set seeds for reproducibility, only for numpy used in dataset split
     random.seed(args.random_seed)
     np.random.seed(args.random_seed)
@@ -789,16 +842,16 @@ def main():
                        "name": "Link-Prediction-Optimizer",
                        "trials": 1,
                        }
-        
+
         # initializing the comet ml optimizer
         opt = Optimizer(config=config_dict,
-                api_key="fMjtHh9OnnEygtraNMjP7Wpig",
-                project_name=args.project_name,
-                workspace="swiggy123")
+                        api_key="fMjtHh9OnnEygtraNMjP7Wpig",
+                        project_name=args.project_name,
+                        workspace="swiggy123")
 
         # iterator consists of experiments
         run_iterator = opt.get_experiments()
-    else:  
+    else:
         # iterator consists of run 0 to x
         parameter_tuning = False
         run_iterator = range(args.runs)
@@ -816,7 +869,7 @@ def main():
         row=row, col=col, sparse_sizes=(data.num_nodes, data.num_nodes))
     data = data.to(device)
 
-    # set eval size for trainset by taking the size of the validation 
+    # set eval size for trainset by taking the size of the validation
     eval_size_trainset = split_edge['valid']['source_node'].shape[0]
     # We randomly pick training samples
     idx = torch.randperm(split_edge['train']['source_node'].numel())[
@@ -834,14 +887,15 @@ def main():
         deg_inv_sqrt = deg.pow(-0.5)
         deg_inv_sqrt[deg_inv_sqrt == float('inf')] = 0
         adj_t = deg_inv_sqrt.view(-1, 1) * adj_t * deg_inv_sqrt.view(1, -1)
-        data.adj_t = adj_t        
-    else: 
+        data.adj_t = adj_t
+    else:
         pass
-    
+
     # defines mrr as the eval metric
     evaluator_mrr = Evaluator(name='ogbl-citation2')
     evaluator_roc_auc = Evaluator(name='ogbl-vessel')
-    quali_evaluator = Quali_Evaluator(data.x, edge_index, args.eval_n_hop_computational_graph)
+    quali_evaluator = Quali_Evaluator(
+        data.x, edge_index, args.eval_n_hop_computational_graph)
 
     for run_index, run in tqdm(enumerate(run_iterator), desc="Training Runs"):
         if not parameter_tuning:
@@ -854,7 +908,7 @@ def main():
             experiment.set_name(f"{args.run_name}")
         else:
             experiment = run
-            for k,v in experiment.params.items():
+            for k, v in experiment.params.items():
                 # overwrite args with parameter tuning args
                 setattr(args, k, v)
             experiment.set_name(f"{args.run_name}-Parametertuning-{run_index}")
@@ -867,7 +921,7 @@ def main():
         optimizer = init_optimizer(model, predictor, args)
 
         step = 0
-        print(f"Start Training: \nArgs:{args}")    
+        print(f"Start Training: \nArgs:{args}")
 
         for epoch in tqdm(range(1, 1 + args.epochs), desc='Training Epochs'):
             # log before model started training, used for transfer learning metrics (jumpstart)
@@ -882,16 +936,21 @@ def main():
             loss, step = train(model, predictor, data, split_edge, optimizer,
                                args.batch_size, experiment, epoch, step, args.random_seed, args.one_batch_training)
 
-            print(f'Run: {run_index + 1:02d}, Epoch: {epoch:02d}, Loss: {loss:.4f}')
+            print(
+                f'Run: {run_index + 1:02d}, Epoch: {epoch:02d}, Loss: {loss:.4f}')
 
             experiment.log_metrics({"loss_epoch": loss}, epoch=epoch)
             experiment.log_epoch_end(epoch, step)
             if args.save_model:
-                if (epoch %args.epoch_checkpoints) == 0:
-                    torch.save(model.state_dict(), f"./temp/model_epoch_{epoch}.pth")
-                    torch.save(predictor.state_dict(), f"./temp/predictor_epoch_{epoch}.pth")
-                    experiment.log_model(f"./model_checkpoints/model_epoch_{epoch}", f"./temp/model_epoch_{epoch}.pth")
-                    experiment.log_model(f"./predictor_checkpoints/predictor_epoch_{epoch}", f"./temp/predictor_epoch_{epoch}.pth")
+                if (epoch % args.epoch_checkpoints) == 0:
+                    torch.save(model.state_dict(),
+                               f"./temp/model_epoch_{epoch}.pth")
+                    torch.save(predictor.state_dict(),
+                               f"./temp/predictor_epoch_{epoch}.pth")
+                    experiment.log_model(
+                        f"./model_checkpoints/model_epoch_{epoch}", f"./temp/model_epoch_{epoch}.pth")
+                    experiment.log_model(
+                        f"./predictor_checkpoints/predictor_epoch_{epoch}", f"./temp/predictor_epoch_{epoch}.pth")
 
         # save model checkpoint if needed
         if args.save_model:
@@ -908,13 +967,11 @@ def main():
         metrics = unzip_test_results(result, loss)
         experiment.log_metrics(metrics, epoch=epoch)
         experiment.log_epoch_end(epoch, step)
-        
 
         experiment.end()
-        
+
         # remove memory from GPU
         del model, predictor, optimizer
-
 
 
 if __name__ == "__main__":

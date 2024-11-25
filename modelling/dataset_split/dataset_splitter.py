@@ -30,7 +30,8 @@ class Dataset_Splitter:
         elif dataset_name == 'ogbn-papers100M':
             dataset = PygNodePropPredDataset(name=dataset_name)
         else:
-            raise ValueError(f"Dataset {dataset_name} does not exist or is not implemented.")
+            raise ValueError(
+                f"Dataset {dataset_name} does not exist or is not implemented.")
 
         return dataset
 
