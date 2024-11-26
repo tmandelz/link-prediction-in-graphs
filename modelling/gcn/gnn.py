@@ -6,7 +6,7 @@ import ast
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import numpy as np
-from torch_geometric.nn import GCNConv, SAGEConv
+from torch_geometric.nn import GCNConv, SAGEConv, GINConv
 from torch.nn import Linear
 from ogb.linkproppred import Evaluator
 import seaborn as sns
@@ -61,6 +61,31 @@ class SAGE(torch.nn.Module):
         for _ in range(num_layers - 2):
             self.convs.append(SAGEConv(hidden_channels, hidden_channels))
         self.convs.append(SAGEConv(hidden_channels, out_channels))
+
+        self.dropout = dropout
+
+    def reset_parameters(self):
+        for conv in self.convs:
+            conv.reset_parameters()
+
+    def forward(self, x, adj_t):
+        for conv in self.convs[:-1]:
+            x = conv(x, adj_t)
+            x = F.relu(x)
+            x = F.dropout(x, p=self.dropout, training=self.training)
+        x = self.convs[-1](x, adj_t)
+        return x
+    
+class GIN(torch.nn.Module):
+    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
+                 dropout):
+        super(GIN, self).__init__()
+
+        self.convs = torch.nn.ModuleList()
+        self.convs.append(GINConv(Linear(in_channels, hidden_channels), train_eps=True))
+        for _ in range(num_layers - 2):
+            self.convs.append(GINConv(Linear(hidden_channels, hidden_channels),train_eps=True))
+        self.convs.append(GINConv(Linear(hidden_channels, out_channels),train_eps=True))
 
         self.dropout = dropout
 
@@ -413,7 +438,7 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             plt.savefig(plot_path)
             plt.close()
             experiment.log_image(plot_path, name=f'{
-                                 dataset}: Distribution of Cosine Similarities')
+                                dataset}: Distribution of Cosine Similarities')
 
         def visualize_proba_vs_cosine_similarity(probas_pos, pos_cos_sims, probas_neg, neg_cos_sims, validation=True):
             if validation:
@@ -669,6 +694,10 @@ def init_gnn_model(args: dict, data: torch.tensor, device: str):
         model = SAGE(data.num_features, args.hidden_channels,
                      args.hidden_channels, args.num_layers,
                      args.dropout).to(device)
+    elif args.model_architecture == "GIN":
+        model = GIN(data.num_features, args.hidden_channels,
+                     args.hidden_channels, args.num_layers,
+                     args.dropout).to(device)
 
     return model
 
@@ -797,9 +826,9 @@ def main():
                         default="link-prediction-development")
     parser.add_argument('--run_name', type=str, default="test_ngnn")
     parser.add_argument('--dataset', type=str,
-                        default="ogbn-arxiv")  # default ogbn-arxiv
+                        default="ogbn-arxiv")  # defaGult ogbn-arxiv
     parser.add_argument('--model_architecture', type=str,
-                        default="GCN_NGNN", choices=['GCN', 'GCN_NGNN', 'SAGE'])
+                        default="GIN", choices=['GCN', 'GCN_NGNN', 'SAGE','GIN'])
     parser.add_argument('--ngnn_type', type=str,
                         default="input", choices=['input', 'hidden'])
     parser.add_argument('--one_batch_training', type=str2bool,
