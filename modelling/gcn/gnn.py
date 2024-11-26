@@ -223,7 +223,11 @@ def train(model, predictor: LinkPredictor, data, split_edge, optimizer, batch_si
 
         dst_neg = torch.randint(0, data.num_nodes, src.size(),
                                 dtype=torch.long, device=h.device)
-
+        mask = dst_neg == src  # Find invalid negative edges
+        while mask.any():
+            dst_neg[mask] = torch.randint(0, data.num_nodes, (mask.sum().item(),), dtype=torch.long, device=h.device)
+            mask = dst_neg == src  # Re-check
+            
         neg_out = predictor(h[src], h[dst_neg])
         neg_loss = -torch.log(1 - neg_out + 1e-15).mean()
 
