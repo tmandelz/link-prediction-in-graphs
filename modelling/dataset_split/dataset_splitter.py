@@ -111,6 +111,9 @@ class Dataset_Splitter:
             not_neighbors = all_nodes[torch.logical_not(
                 torch.isin(all_nodes, neighbors))]
 
+            # Ensure node_of_interest is excluded
+            not_neighbors = not_neighbors[not_neighbors != node_of_interest]
+
             # Sample k not existing edges per node
             sampled_nodes = not_neighbors[random.sample(
                 range(not_neighbors.size(0)), sample_size)]
