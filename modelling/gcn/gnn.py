@@ -826,7 +826,7 @@ def main():
                         default="link-prediction-development")
     parser.add_argument('--run_name', type=str, default="test_ngnn")
     parser.add_argument('--dataset', type=str,
-                        default="ogbn-arxiv")  # defaGult ogbn-arxiv
+                        default="ogbn-arxiv")  # default ogbn-arxiv
     parser.add_argument('--model_architecture', type=str,
                         default="GIN", choices=['GCN', 'GCN_NGNN', 'SAGE', 'GIN'])
     parser.add_argument('--ngnn_type', type=str,
