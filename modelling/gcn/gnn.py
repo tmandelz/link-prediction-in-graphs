@@ -828,7 +828,7 @@ def main():
     parser.add_argument('--dataset', type=str,
                         default="ogbn-arxiv")  # defaGult ogbn-arxiv
     parser.add_argument('--model_architecture', type=str,
-                        default="GIN", choices=['GCN', 'GCN_NGNN', 'SAGE','GIN'])
+                        default="GIN", choices=['GCN', 'GCN_NGNN', 'SAGE', 'GIN'])
     parser.add_argument('--ngnn_type', type=str,
                         default="input", choices=['input', 'hidden'])
     parser.add_argument('--one_batch_training', type=str2bool,
