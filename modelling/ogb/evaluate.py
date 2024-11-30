@@ -9,7 +9,7 @@ try:
 except ImportError:
     torch = None
 
-### Evaluator for link property prediction
+## Evaluator for link property prediction
 class Evaluator:
     def __init__(self, name):
         self.name = name
