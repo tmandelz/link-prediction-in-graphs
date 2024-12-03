@@ -878,9 +878,9 @@ def main():
 
         # initializing the comet ml optimizer
         opt = Optimizer(config=config_dict,
-                        api_key="fMjtHh9OnnEygtraNMjP7Wpig",
+                        api_key="GAzEuNsoYVpPXO2ryeTk7C1o7",
                         project_name=args.project_name,
-                        workspace="swiggy123")
+                        workspace="transfer-learning-link-prediction")
 
         # iterator consists of experiments
         run_iterator = opt.get_experiments()
