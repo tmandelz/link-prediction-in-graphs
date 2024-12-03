@@ -28,5 +28,5 @@ sbatch <<EOF
 #SBATCH --exclude=node15,sdas2,gpu22a,gpu22b
 
 # git repo bind into docker image
-singularity exec --nv --bind "${BASE_PATH}/dev/link-prediction-in-graphs:/work/project" --pwd /work/project "${BASE_PATH}/images/link-prediction-in-graphs.sif" python modelling/gcn/gnn.py $@
+singularity exec --nv --bind "${BASE_PATH}/dev/link-prediction-in-graphs:/work/project" --pwd /work/project "${BASE_PATH}/images/link-prediction-in-graphs.sif" python modelling/gnn/gnn.py $@
 EOF
