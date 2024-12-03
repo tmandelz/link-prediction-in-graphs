@@ -6,7 +6,7 @@ WORKDIR /work
 RUN pip install -U git+https://github.com/huggingface/accelerate.git
 
 # install requirements
-COPY requirements.txt requirements.txt
+COPY additional/i4ds_cluster/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 # install sparse and scatter explicitly
 RUN pip install torch-scatter torch-sparse -f https://data.pyg.org/whl/torch-2.0.0+cu118.html
