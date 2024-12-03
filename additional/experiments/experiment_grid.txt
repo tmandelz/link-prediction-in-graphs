@@ -2,7 +2,7 @@
 Hyperparametertuning
 	GCN
 		Reference Hyperparametertune
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name TUNE-GCN-Reference 
 			--run_name 1_TUNE_RUN
 			--epochs 150 
@@ -19,7 +19,7 @@ Hyperparametertuning
 			"num_layers": {"max": 3, "min": 	2, "scaling_type": "uniform", "type": "integer"}}
 
 		Pretrain Hyperparametertuning
-			gnn.py
+			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-GCN-Pretrain
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -36,7 +36,7 @@ Hyperparametertuning
 			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
 
 		Finetune Hyperparametertune
-			gnn.py
+			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-GCN-Finetune
 			--run_name 1_TUN_RUN
 			--epochs 25 
@@ -55,7 +55,7 @@ Hyperparametertuning
 			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
 	GraphSage (NEEDS CHECKs if paramater are more or less good!!!)
 		Reference Hyperparametertune
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name TUNE-SAGE-Reference 
 			--run_name 1_TUNE_RUN
 			--epochs 150 
@@ -72,7 +72,7 @@ Hyperparametertuning
 			"num_layers": {"max": 3, "min": 	2, "scaling_type": "uniform", "type": "integer"}}
 
 		Pretrain Hyperparametertuning
-			gnn.py
+			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-SAGE-Pretrain 
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -89,7 +89,7 @@ Hyperparametertuning
 			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
 
 		Finetune Hyperparametertune
-			gnn.py
+			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-SAGE-Finetune 
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -108,7 +108,7 @@ Hyperparametertuning
 			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
 	GIN (NEEDS CHECKs if paramater are more or less good!!!)
 		Reference Hyperparametertune
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name TUNE-GIN-Reference 
 			--run_name 1_TUNE_RUN
 			--epochs 150 
@@ -125,7 +125,7 @@ Hyperparametertuning
 			"num_layers": {"max": 3, "min": 	2, "scaling_type": "uniform", "type": "integer"}}
 
 		Pretrain Hyperparametertuning
-			gnn.py
+			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-GIN-Pretrain 
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -142,7 +142,7 @@ Hyperparametertuning
 			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
 
 		Finetune Hyperparametertune
-			gnn.py
+			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-GIN-Finetune 
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -163,7 +163,7 @@ Hyperparametertuning
 Train optimal models
 	GCN
 		Reference
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Reference_GCN 
 			--epochs 2100 -> TODO Define length of training
@@ -179,7 +179,7 @@ Train optimal models
 			--eval_n_hop_computational_graph 0 
 			--epoch_checkpoints 5
 		Pretrain
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Pretrain_GCN 
 			--epochs 200 -> TODO Define length of training
@@ -196,7 +196,7 @@ Train optimal models
 			--epoch_checkpoints 5
 
 		Finetune
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Finetune_GCN 
 			--epochs 2100 -> TODO Define length of training
@@ -213,7 +213,7 @@ Train optimal models
 			--epoch_checkpoints 5
 	GraphSage
 		Reference
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Reference_SAGE
 			--epochs 2100 -> TODO Define length of training
@@ -229,7 +229,7 @@ Train optimal models
 			--eval_n_hop_computational_graph 0 
 			--epoch_checkpoints 5
 		Pretrain
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Pretrain_SAGE 
 			--epochs 200 -> TODO Define length of training
@@ -246,7 +246,7 @@ Train optimal models
 			--epoch_checkpoints 5
 
 		Finetune
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Finetune_SAGE 
 			--epochs 2100 -> TODO Define length of training
@@ -263,7 +263,7 @@ Train optimal models
 			--epoch_checkpoints 5
 	GIN
 		Reference
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Reference_GIN
 			--epochs 2100 -> TODO Define length of training
@@ -279,7 +279,7 @@ Train optimal models
 			--eval_n_hop_computational_graph 0 
 			--epoch_checkpoints 5
 		Pretrain
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Pretrain_GIN 
 			--epochs 200 -> TODO Define length of training
@@ -296,7 +296,7 @@ Train optimal models
 			--epoch_checkpoints 5
 
 		Finetune
-			gnn.py 
+			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Finetune_GIN
 			--epochs 2100 -> TODO Define length of training
