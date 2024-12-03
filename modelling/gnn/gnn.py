@@ -929,9 +929,9 @@ def main():
         if not parameter_tuning:
             # init a new experiment per run
             experiment = Experiment(
-                api_key="fMjtHh9OnnEygtraNMjP7Wpig",
+                api_key="GAzEuNsoYVpPXO2ryeTk7C1o7",
                 project_name=args.project_name,
-                workspace="swiggy123"
+                workspace="transfer-learning-link-prediction"
             )
             experiment.set_name(f"{args.run_name}")
         else:
