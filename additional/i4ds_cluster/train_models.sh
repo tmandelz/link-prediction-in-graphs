@@ -22,7 +22,7 @@ sbatch <<EOF
 #SBATCH --job-name="link-prediction-gnn"
 #SBATCH --cpus-per-task=1
 #SBATCH -p performance
-#SBATCH -t 12:00:00
+#SBATCH -t 90:00:00
 #SBATCH --gpus=1
 #SBATCH --out="${BASE_PATH}/logs/link-prediction-in-graphs/%j.log"
 #SBATCH --exclude=node15,sdas2,gpu22a,gpu22b
