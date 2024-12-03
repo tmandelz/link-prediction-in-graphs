@@ -13,7 +13,7 @@ fi
 mkdir -p "${BASE_PATH}/images"
 if [ ! -f "${BASE_PATH}/images/link-prediction-in-graphs.sif" ]; then
   echo "[$(date +"%Y-%m-%dT%H:%M:%S")] pulling image link-prediction-in-graphs started"
-  srun --pty --job-name="image" -p performance singularity pull --name "${BASE_PATH}/images/link-prediction-in-graphs.sif" docker://cr.gitlab.fhnw.ch/thomasoliver.mandelz/link-prediction-in-graphs:latest
+  srun --pty --job-name="image" -p performance singularity pull --no-cache --name "${BASE_PATH}/images/link-prediction-in-graphs.sif" docker://cr.gitlab.fhnw.ch/thomasoliver.mandelz/link-prediction-in-graphs:latest
   echo "[$(date +"%Y-%m-%dT%H:%M:%S")] image link-prediction-in-graphs pulled"
 fi
 
