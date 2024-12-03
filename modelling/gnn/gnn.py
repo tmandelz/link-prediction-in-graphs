@@ -319,14 +319,12 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
                     dataset = "Test"
                 jp = sns.jointplot(x=variable, y=mrr, kind='scatter', alpha=0.3, marginal_kws={
                                    'bins': 50, 'fill': True})
-                jp.figure.suptitle(f'{dataset}: reciprocal rank vs {
-                                   variable_name} \n n = {len(mrr)}', fontsize=20, y=1.05)
+                jp.figure.suptitle(f'{dataset}: reciprocal rank vs {variable_name} \n n = {len(mrr)}', fontsize=20, y=1.05)
                 jp.set_axis_labels(f'{variable_name}', 'reciprocal rank')
                 plot_path = f"./temp/{dataset}_reciprocal_rank_vs_{variable_name}.png"
                 jp.savefig(plot_path)
                 plt.close(jp.figure)
-                experiment.log_image(plot_path, name=f'{
-                                     dataset}: reciprocal rank vs {variable_name}')
+                experiment.log_image(plot_path, name=f'{dataset}: reciprocal rank vs {variable_name}')
 
             def calculate_similarity_of_neighbours(train_edges, evaluation_nodes, mrr_list):
                 adjacency_list = {}
@@ -392,8 +390,7 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             plot_path = f"./temp/{dataset}_reciprocal_rank_Distribution.png"
             plt.savefig(plot_path)
             plt.close()
-            experiment.log_image(plot_path, name=f'{
-                                 dataset}: reciprocal rank Distribution')
+            experiment.log_image(plot_path, name=f'{dataset}: reciprocal rank Distribution')
 
         def calc_cosine_similarities(pos_pred, neg_pred, target_neg, source_unique, graph, target_val):
             graph.x = graph.x.cpu()
@@ -437,8 +434,7 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             plot_path = f"./temp/{dataset}Distribution_of_Cosine_Similarities.png"
             plt.savefig(plot_path)
             plt.close()
-            experiment.log_image(plot_path, name=f'{
-                                dataset}: Distribution of Cosine Similarities')
+            experiment.log_image(plot_path, name=f'{dataset}: Distribution of Cosine Similarities')
 
         def visualize_proba_vs_cosine_similarity(probas_pos, pos_cos_sims, probas_neg, neg_cos_sims, validation=True):
             if validation:
@@ -458,8 +454,7 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
             plot_path = f"./temp/{dataset}Word2vec_Similarity_of_Top1_Predicted_Node.png"
             plt.savefig(plot_path)
             plt.close()
-            experiment.log_image(plot_path, name=f'{
-                                 dataset}: Word2vec Similarity of Top1 Predicted Node')
+            experiment.log_image(plot_path, name=f'{dataset}: Word2vec Similarity of Top1 Predicted Node')
 
         def visualise_roc_curve(eval_dict_roc_auc, validation=True):
             if validation:
