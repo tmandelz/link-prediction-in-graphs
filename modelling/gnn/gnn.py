@@ -3,6 +3,7 @@ from tqdm.auto import tqdm
 from comet_ml import Experiment, Optimizer
 import torch
 import ast
+import json
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import numpy as np
@@ -782,12 +783,12 @@ def unzip_test_results(result, loss=None):
     return metrics
 
 
-def dict_type(arg):
+def dict_type(input_str):
     try:
-        # Use ast.literal_eval to safely evaluate the string as a dictionary
-        return ast.literal_eval(arg)
-    except ValueError:
-        raise argparse.ArgumentTypeError("Invalid dictionary: {}".format(arg))
+        # Safely evaluate the string as a Python literal
+        return ast.literal_eval(input_str)
+    except (ValueError, SyntaxError) as e:
+        raise argparse.ArgumentTypeError(f"Invalid dictionary format: {e}\n {input_str}")
 
 
 def str2bool(v):
@@ -832,8 +833,7 @@ def main():
                         default=12345)  # default 12345
     parser.add_argument('--parameter_tuning_algo', type=str, default="random",
                         choices=["random", "grid", "bayes"])  # default random
-    parser.add_argument('--parameter_tuning_param_grid',
-                        type=dict_type, default=None)  # default None
+    parser.add_argument('--parameter_tuning_param_grid', type=str, default='./modelling/gnn/parameter_tuning_param_grid_file.json', help="Path to the parameter grid file")
     parser.add_argument('--save_model', type=str2bool,
                         default=False, choices=[False, True])  # default False
     parser.add_argument('--epoch_checkpoints', type=int,
@@ -848,15 +848,19 @@ def main():
 
     args = parser.parse_args()
 
+    # Load the dictionary from the file
+    with open(args.parameter_tuning_param_grid, 'r') as file:
+        args.parameter_tuning_param_grid = json.load(file)
+
     # set seeds for reproducibility, only for numpy used in dataset split
     random.seed(args.random_seed)
     np.random.seed(args.random_seed)
 
-    # set device
+    # set device    
     device = f'cuda:{args.device}' if torch.cuda.is_available() else 'cpu'
     device = torch.device(device)
 
-    if isinstance(args.parameter_tuning_param_grid, type(dict())):
+    if isinstance(args.parameter_tuning_param_grid, dict) and args.parameter_tuning_param_grid:
         parameter_tuning = True
         # defining the configuration dictionary for comet ml parameter tuning
         config_dict = {"algorithm": args.parameter_tuning_algo,
