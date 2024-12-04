@@ -1,2 +1,14 @@
-{"batch_size": {"max": 65536, "min": 32768, "scaling_type": "linear", "type": "integer"}, 
-			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
+{
+  "batch_size": {
+    "max": 65536,
+    "min": 32768,
+    "scaling_type": "linear",
+    "type": "integer"
+  },
+  "lr": {
+    "max": 0.0005,
+    "min": 0.0001,
+    "scaling_type": "linear",
+    "type": "double"
+  }
+}

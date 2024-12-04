@@ -1,6 +1,6 @@
 {
   "batch_size": {
-    "max": 262144,
+    "max": 90000,
     "min": 32768,
     "scaling_type": "linear",
     "type": "integer"
@@ -8,7 +8,7 @@
   "hidden_channels": {
     "scaling_type": "uniform",
     "type": "discrete",
-    "values": [128, 256, 384, 512]
+    "values": [384, 512]
   },
   "lr": {
     "max": 0.001,
