@@ -25,6 +25,18 @@ Hyperparametertuning:
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Reference_2_TUNE_RUN.json
+			
+			bash additional/i4ds_cluster/train_models.sh 
+			--project_name TUNE-GCN-Reference 
+			--run_name 3_TUNE_RUN
+			--epochs 150 
+			--dataset ogbn-arxiv 
+			--model_architecture GCN 
+			--one_batch_training False 
+			--freeze_model False 
+			--save_model False 
+			--eval_n_hop_computational_graph 0 
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Reference_3_TUNE_RUN.json
 
 
 
@@ -86,6 +98,19 @@ Hyperparametertuning:
 			--eval_n_hop_computational_graph 0 
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Reference_2_TUNE_RUN.json
 
+			bash additional/i4ds_cluster/train_models.sh 
+			--project_name TUNE-SAGE-Reference 
+			--run_name 3_TUNE_RUN
+			--epochs 150 
+			--dataset ogbn-arxiv 
+			--model_architecture SAGE 
+			--one_batch_training False 
+			--freeze_model False 
+			--save_model False 
+			--eval_n_hop_computational_graph 0 
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Reference_3_TUNE_RUN.json
+
+
 		Pretrain Hyperparametertuning
 			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-SAGE-Pretrain 
@@ -134,6 +159,30 @@ Hyperparametertuning:
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Reference_1_TUNE_RUN.json
+
+			bash additional/i4ds_cluster/train_models.sh 
+			--project_name TUNE-GIN-Reference 
+			--run_name 2_TUNE_RUN
+			--epochs 150 
+			--dataset ogbn-arxiv 
+			--model_architecture GIN 
+			--one_batch_training False 
+			--freeze_model False 
+			--save_model False 
+			--eval_n_hop_computational_graph 0 
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Reference_2_TUNE_RUN.json
+			
+			bash additional/i4ds_cluster/train_models.sh 
+			--project_name TUNE-GIN-Reference 
+			--run_name 3_TUNE_RUN
+			--epochs 150 
+			--dataset ogbn-arxiv 
+			--model_architecture GIN 
+			--one_batch_training False 
+			--freeze_model False 
+			--save_model False 
+			--eval_n_hop_computational_graph 0 
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Reference_3_TUNE_RUN.json
 
 		Pretrain Hyperparametertuning
 			bash additional/i4ds_cluster/train_models.sh

@@ -1,0 +1,28 @@
+{
+    "batch_size": {
+        "max": 90000,
+        "min": 32768,
+        "scaling_type": "linear",
+        "type": "integer"
+    },
+    "hidden_channels": {
+        "scaling_type": "uniform",
+        "type": "discrete",
+        "values": [
+            384,
+            512
+        ]
+    },
+    "lr": {
+        "max": 0.0007,
+        "min": 0.0001,
+        "scaling_type": "linear",
+        "type": "double"
+    },
+    "num_layers": {
+        "max": 3,
+        "min": 2,
+        "scaling_type": "uniform",
+        "type": "integer"
+    }
+}
