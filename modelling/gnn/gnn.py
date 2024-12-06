@@ -833,7 +833,7 @@ def main():
                         default=12345)  # default 12345
     parser.add_argument('--parameter_tuning_algo', type=str, default="random",
                         choices=["random", "grid", "bayes"])  # default random
-    parser.add_argument('--parameter_tuning_param_grid', type=str, default='./modelling/gnn/parameter_tuning_param_grid_file.json', help="Path to the parameter grid file")
+    parser.add_argument('--parameter_tuning_param_grid', type=str, default=None, help="Path to the parameter grid file")
     parser.add_argument('--save_model', type=str2bool,
                         default=False, choices=[False, True])  # default False
     parser.add_argument('--epoch_checkpoints', type=int,
@@ -848,9 +848,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Load the dictionary from the file
-    with open(args.parameter_tuning_param_grid, 'r') as file:
-        args.parameter_tuning_param_grid = json.load(file)
 
     # set seeds for reproducibility, only for numpy used in dataset split
     random.seed(args.random_seed)
@@ -860,20 +857,28 @@ def main():
     device = f'cuda:{args.device}' if torch.cuda.is_available() else 'cpu'
     device = torch.device(device)
 
-    if isinstance(args.parameter_tuning_param_grid, dict) and args.parameter_tuning_param_grid:
+    if args.parameter_tuning_param_grid is not None:
+        # Load the dictionary from the file
+        with open(args.parameter_tuning_param_grid, 'r') as file:
+            parameter_tuning_param_grid_json = json.load(file)
+    else:
+        parameter_tuning_param_grid_json = None
+
+    if isinstance(parameter_tuning_param_grid_json, dict) and parameter_tuning_param_grid_json:
+        print(f'Parametertuning started with grid: {parameter_tuning_param_grid_json}')
         parameter_tuning = True
         # defining the configuration dictionary for comet ml parameter tuning
         config_dict = {"algorithm": args.parameter_tuning_algo,
-                       "spec": {
-                           "metric": "valid_mrr",
-                           "objective": "maximize",
-                           "maxCombo": 100,
-                           "gridSize": 10,
-                       },
-                       "parameters": args.parameter_tuning_param_grid,
-                       "name": "Link-Prediction-Optimizer",
-                       "trials": 1,
-                       }
+                    "spec": {
+                        "metric": "valid_mrr",
+                        "objective": "maximize",
+                        "maxCombo": 100,
+                        "gridSize": 10,
+                    },
+                    "parameters": parameter_tuning_param_grid_json,
+                    "name": "Link-Prediction-Optimizer",
+                    "trials": 1,
+                    }
 
         # initializing the comet ml optimizer
         opt = Optimizer(config=config_dict,
@@ -885,6 +890,7 @@ def main():
         run_iterator = opt.get_experiments()
     else:
         # iterator consists of run 0 to x
+        print(f'Regular Training started')
         parameter_tuning = False
         run_iterator = range(args.runs)
 
