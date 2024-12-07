@@ -49,8 +49,8 @@ Hyperparametertuning:
 			--freeze_model False 
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
-			--hidden_channels  -> TODO defined by Reference Size
-			--num_layers -> TODO defined by Reference Size
+			--hidden_channels  384
+			--num_layers 2
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Pretrain_1_TUNE_RUN.json
 			
 
@@ -65,8 +65,8 @@ Hyperparametertuning:
 			--freeze_model False 
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
-			--hidden_channels  -> TODO defined by Reference Size
-			--num_layers -> TODO defined by Reference Size
+			--hidden_channels  384
+			--num_layers 2
 			--model_path -> TODO defined by best model pretrain
 			--predictor_path -> TODO defined by best model pretrain
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Finetune_1_TUNE_RUN.json
@@ -120,11 +120,9 @@ Hyperparametertuning:
 			--freeze_model False 
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
-			--hidden_channels  -> TODO defined by Reference Size
-			--num_layers -> TODO defined by Reference Size
-			--parameter_tuning_param_grid
-			{"batch_size": {"max": 65536, "min": 32768, "scaling_type": "linear", "type": "integer"}, 
-			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
+			--hidden_channels  384
+			--num_layers 2
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Pretrain_1_TUNE_RUN.json
 
 		Finetune Hyperparametertune
 			bash additional/i4ds_cluster/train_models.sh
@@ -137,8 +135,8 @@ Hyperparametertuning:
 			--freeze_model False 
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
-			--hidden_channels  -> TODO defined by Reference Size
-			--num_layers -> TODO defined by Reference Size
+			--hidden_channels  384
+			--num_layers 2
 			--model_path -> TODO defined by best model pretrain
 			--predictor_path -> TODO defined by best model pretrain
 			--parameter_tuning_param_grid
