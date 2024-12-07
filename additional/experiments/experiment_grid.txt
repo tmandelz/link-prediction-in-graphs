@@ -39,7 +39,7 @@ Hyperparametertuning:
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Reference_3_TUNE_RUN.json
 		
 		Pretrain Hyperparametertuning:
-			bash additional/i4ds_cluster/train_models.sh
+			bash additional/i4ds_cluster/train_models_big_gpus.sh
 			--project_name TUNE-GCN-Pretrain
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -49,12 +49,10 @@ Hyperparametertuning:
 			--freeze_model False 
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
-			--hidden_channels  384
+			--hidden_channels 384
 			--num_layers 2
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Pretrain_1_TUNE_RUN.json
-			
-
-		Finetune Hyperparametertune
+		Finetune Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-GCN-Finetune
 			--run_name 1_TUNE_RUN
@@ -71,7 +69,7 @@ Hyperparametertuning:
 			--predictor_path -> TODO defined by best model pretrain
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Finetune_1_TUNE_RUN.json
 	GraphSage (NEEDS CHECKs if paramater are more or less good!!!)
-		Reference Hyperparametertune
+		Reference Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh 
 			--project_name TUNE-SAGE-Reference 
 			--run_name 1_TUNE_RUN
@@ -109,8 +107,8 @@ Hyperparametertuning:
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Reference_3_TUNE_RUN.json
 		
 
-		Pretrain Hyperparametertuning
-			bash additional/i4ds_cluster/train_models.sh
+		Pretrain Hyperparametertuning:
+			bash additional/i4ds_cluster/train_models_big_gpus.sh
 			--project_name TUNE-SAGE-Pretrain 
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -124,7 +122,7 @@ Hyperparametertuning:
 			--num_layers 2
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Pretrain_1_TUNE_RUN.json
 
-		Finetune Hyperparametertune
+		Finetune Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh
 			--project_name TUNE-SAGE-Finetune 
 			--run_name 1_TUNE_RUN
@@ -181,7 +179,7 @@ Hyperparametertuning:
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Reference_3_TUNE_RUN.json
 
 		Pretrain Hyperparametertuning
-			bash additional/i4ds_cluster/train_models.sh
+			bash additional/i4ds_cluster/train_models_big_gpus.sh
 			--project_name TUNE-GIN-Pretrain 
 			--run_name 1_TUNE_RUN
 			--epochs 25 
@@ -238,7 +236,7 @@ Train optimal models:
 			--eval_n_hop_computational_graph 0
 			--epoch_checkpoints 5
 		Pretrain:
-			bash additional/i4ds_cluster/train_models.sh 
+			bash additional/i4ds_cluster/train_models_big_gpus.sh 
 			--project_name GNN_models 
 			--run_name Pretrain_GCN 
 			--epochs 200 -> TODO Define length of training
@@ -287,7 +285,7 @@ Train optimal models:
 			--eval_n_hop_computational_graph 0 
 			--epoch_checkpoints 5
 		Pretrain:
-			bash additional/i4ds_cluster/train_models.sh 
+			bash additional/i4ds_cluster/train_models_big_gpus.sh 
 			--project_name GNN_models 
 			--run_name Pretrain_SAGE 
 			--epochs 200 -> TODO Define length of training
@@ -320,23 +318,23 @@ Train optimal models:
 			--epoch_checkpoints 5
 	GIN:
 		Reference:
-			bash additional/i4ds_cluster/train_models.sh 
-			--project_name GNN_models 
+			bash additional/i4ds_cluster/train_models.sh
+			--project_name long-reference
 			--run_name Reference_GIN
-			--epochs 2100 -> TODO Define length of training
-			--dataset ogbn-arxiv 
-			--batch_size  -> TODO Defined trough Hyperparametertune 
-			--lr  -> TODO Defined trough Hyperparametertune 
-			--num_layers  -> TODO Defined trough Hyperparametertune 
-			--hidden_channels -> TODO Defined trough Hyperparametertune 
-			--model_architecture GCN 
-			--one_batch_training False 
-			--freeze_model False 
-			--save_model True 
-			--eval_n_hop_computational_graph 0 
+			--epochs 2100
+			--dataset ogbn-arxiv
+			--batch_size 33134
+			--lr 0.000284653
+			--num_layers 2
+			--hidden_channels 384
+			--model_architecture GIN
+			--one_batch_training False
+			--freeze_model False
+			--save_model True
+			--eval_n_hop_computational_graph 0
 			--epoch_checkpoints 5
 		Pretrain:
-			bash additional/i4ds_cluster/train_models.sh 
+			bash additional/i4ds_cluster/train_models_big_gpus.sh 
 			--project_name GNN_models 
 			--run_name Pretrain_GIN 
 			--epochs 200 -> TODO Define length of training
