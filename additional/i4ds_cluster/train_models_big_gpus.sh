@@ -25,7 +25,7 @@ sbatch <<EOF
 #SBATCH -t 90:00:00
 #SBATCH --gpus=1
 #SBATCH --out="${BASE_PATH}/logs/link-prediction-in-graphs/%j.log"
-#SBATCH --exclude=node15,sdas2,gpu22a,gpu22b,sdas1,node15,gpu23a,gpu23b,gpu23c,gpu23d
+#SBATCH --exclude=server0096,server0092,server0099,server0101,server0090,server0096,server0103,server0105,server0107,server0109
 
 # git repo bind into docker image
 singularity exec --nv --bind "${BASE_PATH}/dev/link-prediction-in-graphs:/work/project" --pwd /work/project "${BASE_PATH}/images/link-prediction-in-graphs.sif" python modelling/gnn/gnn.py $@
