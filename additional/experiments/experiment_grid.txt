@@ -298,12 +298,12 @@ Train optimal models:
 			bash additional/i4ds_cluster/train_models_big_gpus.sh 
 			--project_name GNN_models 
 			--run_name Pretrain_SAGE 
-			--epochs 200 -> TODO Define length of training
+			--epochs 200 
 			--dataset papers100M 
-			--batch_size  -> TODO Defined trough Hyperparametertune 
-			--lr  -> TODO Defined trough Hyperparametertune 
-			--num_layers  -> TODO Defined trough Hyperparametertune 
-			--hidden_channels -> TODO Defined trough Hyperparametertune 
+			--batch_size  16209 
+			--lr  0.00144 
+			--num_layers 2
+			--hidden_channels 384 
 			--model_architecture SAGE 
 			--one_batch_training False 
 			--freeze_model False 
