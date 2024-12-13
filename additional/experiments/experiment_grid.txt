@@ -136,6 +136,8 @@ Hyperparametertuning:
 			--num_layers 2
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Pretrain_2_TUNE_RUN.json
 
+			bash additional/i4ds_cluster/train_models_big_gpus.sh --project_name TUNE-SAGE-Pretrain --run_name 3_TUNE_RUN --epochs 25 --dataset ogbn-papers100M --model_architecture SAGE --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Pretrain_3_TUNE_RUN.json
+
 
 		Finetune Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh
