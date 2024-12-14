@@ -242,7 +242,7 @@ Train optimal models:
 			bash additional/i4ds_cluster/train_models.sh --project_name Long-Reference_longer --run_name Reference_GCN --epochs 2500 --dataset ogbn-arxiv --batch_size 52109 --lr 0.000686411 --num_layers 2 --hidden_channels 384 --model_architecture GCN --one_batch_training False --freeze_model False --save_model True --eval_n_hop_computational_graph 0 --epoch_checkpoints 50
 
 		Pretrain:
-			bash additional/i4ds_cluster/train_models_big_gpus.sh --project_name long_pretrain --run_name Pretrain_GCN --epochs 200 --dataset ogbn-papers100M --batch_size 35327 --lr 0.0006191951310560785 --num_layers 384 --hidden_channels 2 --model_architecture GCN --one_batch_training False --freeze_model False --save_model True --eval_n_hop_computational_graph 0 --epoch_checkpoints 5
+			bash additional/i4ds_cluster/train_models_big_gpus.sh --project_name long_pretrain --run_name Pretrain_GCN --epochs 200 --dataset ogbn-papers100M --batch_size 35327 --lr 0.0006191 --num_layers 2 --hidden_channels 384 --model_architecture GCN --one_batch_training False --freeze_model False --save_model True --eval_n_hop_computational_graph 0 --epoch_checkpoints 5
 		Finetune:
 			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
