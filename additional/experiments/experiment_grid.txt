@@ -154,9 +154,8 @@ Hyperparametertuning:
 			--num_layers 2
 			--model_path -> TODO defined by best model pretrain
 			--predictor_path -> TODO defined by best model pretrain
-			--parameter_tuning_param_grid
-			{"batch_size": {"max": 57520, "min": 25566, "scaling_type": "linear", "type": "integer"}, 
-			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Finetune_1_TUNE_RUN.json
+
 	GIN (NEEDS CHECKs if paramater are more or less good!!!)
 		Reference Hyperparametertune
 			bash additional/i4ds_cluster/train_models.sh 
@@ -210,14 +209,11 @@ Hyperparametertuning:
 			--freeze_model False 
 			--save_model False 
 			--eval_n_hop_computational_graph 0 
-			--hidden_channels  -> TODO defined by Reference Size
-			--num_layers -> TODO defined by Reference Size
+			--hidden_channels  384
+			--num_layers 2
 			--model_path -> TODO defined by best model pretrain
 			--predictor_path -> TODO defined by best model pretrain
-			--parameter_tuning_param_grid
-			{"batch_size": {"max": 57520, "min": 25566, "scaling_type": "linear", "type": "integer"}, 
-			"lr": {"max": 0.0005, "min": 0.0001, "scaling_type": "linear", "type": "double"}}
-
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Finetune_1_TUNE_RUN.json
 
 
 Train optimal models:
@@ -253,8 +249,8 @@ Train optimal models:
 			--dataset ogbn-arxiv 
 			--batch_size  -> TODO Defined trough Hyperparametertune 
 			--lr  -> TODO Defined trough Hyperparametertune 
-			--num_layers  -> TODO Defined trough Hyperparametertune 
-			--hidden_channels -> TODO Defined trough Hyperparametertune 
+			--num_layers  2 
+			--hidden_channels 384 
 			--model_architecture GCN 
 			--one_batch_training False 
 			--freeze_model False 
@@ -292,8 +288,8 @@ Train optimal models:
 			--dataset ogbn-arxiv 
 			--batch_size  -> TODO Defined trough Hyperparametertune 
 			--lr  -> TODO Defined trough Hyperparametertune 
-			--num_layers  -> TODO Defined trough Hyperparametertune 
-			--hidden_channels -> TODO Defined trough Hyperparametertune 
+			--num_layers 2
+			--hidden_channels 384
 			--model_architecture SAGE
 			--one_batch_training False 
 			--freeze_model False 
