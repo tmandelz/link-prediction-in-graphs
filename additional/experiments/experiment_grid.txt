@@ -54,6 +54,7 @@ Hyperparametertuning:
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Pretrain_1_TUNE_RUN.json
 		Finetune Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh --project_name TUNE-GCN-Finetune --run_name 1_TUNE_RUN --epochs 25 --dataset ogbn-arxiv --model_architecture GCN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --model_path ./modelling/gnn/gcn_pretrain_long200_model.pth --predictor_path ./modelling/gnn/gcn_pretrain_long200_predictor.pth --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Finetune_1_TUNE_RUN.json
+			bash additional/i4ds_cluster/train_models.sh --project_name TUNE-GCN-Finetune --run_name 2_TUNE_RUN --epochs 25 --dataset ogbn-arxiv --model_architecture GCN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --model_path ./modelling/gnn/gcn_pretrain_long200_model.pth --predictor_path ./modelling/gnn/gcn_pretrain_long200_predictor.pth --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Finetune_2_TUNE_RUN.json
 	GraphSage (NEEDS CHECKs if paramater are more or less good!!!)
 		Reference Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh 
@@ -126,21 +127,7 @@ Hyperparametertuning:
 
 
 		Finetune Hyperparametertune:
-			bash additional/i4ds_cluster/train_models.sh
-			--project_name TUNE-SAGE-Finetune 
-			--run_name 1_TUNE_RUN
-			--epochs 25 
-			--dataset ogbn-arxiv  
-			--model_architecture SAGE 
-			--one_batch_training False 
-			--freeze_model False 
-			--save_model False 
-			--eval_n_hop_computational_graph 0 
-			--hidden_channels  384
-			--num_layers 2
-			--model_path -> TODO defined by best model pretrain
-			--predictor_path -> TODO defined by best model pretrain
-			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Finetune_1_TUNE_RUN.json
+			bash additional/i4ds_cluster/train_models.sh --project_name TUNE-SAGE-Finetune --run_name 1_TUNE_RUN --epochs 25 --dataset ogbn-arxiv --model_architecture SAGE --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --model_path ./modelling/gnn/sage_pretrain_long200_model.pth --predictor_path ./modelling/gnn/sage_pretrain_long200_predictor.pth --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Finetune_1_TUNE_RUN.json
 
 	GIN (NEEDS CHECKs if paramater are more or less good!!!)
 		Reference Hyperparametertune
@@ -185,21 +172,7 @@ Hyperparametertuning:
 		bash additional/i4ds_cluster/train_models_big_gpus.sh --project_name TUNE-GIN-Pretrain --run_name 2_TUNE_RUN --epochs 25 --dataset ogbn-papers100M --model_architecture GIN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Pretrain_2_TUNE_RUN.json
 
 		Finetune Hyperparametertune:
-			bash additional/i4ds_cluster/train_models.sh
-			--project_name TUNE-GIN-Finetune 
-			--run_name 1_TUNE_RUN
-			--epochs 25 
-			--dataset ogbn-arxiv  
-			--model_architecture GIN 
-			--one_batch_training False 
-			--freeze_model False 
-			--save_model False 
-			--eval_n_hop_computational_graph 0 
-			--hidden_channels  384
-			--num_layers 2
-			--model_path -> TODO defined by best model pretrain
-			--predictor_path -> TODO defined by best model pretrain
-			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Finetune_1_TUNE_RUN.json
+			bash additional/i4ds_cluster/train_models.sh --project_name TUNE-GIN-Finetune --run_name 1_TUNE_RUN --epochs 25 --dataset ogbn-arxiv --model_architecture GIN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --model_path ./modelling/gnn/gin_pretrain_long200_model.pth --predictor_path ./modelling/gnn/gin_pretrain_long200_predictor.pth --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GIN-Finetune_1_TUNE_RUN.json
 
 
 Train optimal models:
