@@ -203,10 +203,10 @@ Train optimal models:
 			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Finetune_GCN 
-			--epochs 2100 -> TODO Define length of training
+			--epochs 2100 
 			--dataset ogbn-arxiv 
-			--batch_size  -> TODO Defined trough Hyperparametertune 
-			--lr  -> TODO Defined trough Hyperparametertune 
+			--batch_size  19253 
+			--lr 0.001
 			--num_layers  2 
 			--hidden_channels 384 
 			--model_architecture GCN 
@@ -220,12 +220,12 @@ Train optimal models:
 			bash additional/i4ds_cluster/train_models.sh 
 			--project_name GNN_models 
 			--run_name Reference_SAGE
-			--epochs 2100 -> TODO Define length of training
+			--epochs 2100 
 			--dataset ogbn-arxiv 
-			--batch_size  -> TODO Defined trough Hyperparametertune 
-			--lr  -> TODO Defined trough Hyperparametertune 
-			--num_layers  -> TODO Defined trough Hyperparametertune 
-			--hidden_channels -> TODO Defined trough Hyperparametertune 
+			--batch_size 18900 
+			--lr 0.00118 
+			--num_layers 2
+			--hidden_channels 384 
 			--model_architecture SAGE 
 			--one_batch_training False 
 			--freeze_model False 
