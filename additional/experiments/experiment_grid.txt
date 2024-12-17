@@ -288,8 +288,8 @@ Train optimal models:
 			--run_name Finetune_GIN
 			--epochs 2100 
 			--dataset ogbn-arxiv 
-			--batch_size  -> TODO Defined trough Hyperparametertune 
-			--lr  -> TODO Defined trough Hyperparametertune 
+			--batch_size  13005 
+			--lr 0.00114 
 			--num_layers 2
 			--hidden_channels 384
 			--model_architecture GIN 
