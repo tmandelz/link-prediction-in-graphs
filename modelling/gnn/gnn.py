@@ -187,6 +187,21 @@ class GCN(torch.nn.Module):
             x = F.dropout(x, p=self.dropout, training=self.training)
         x = self.convs[-1](x, adj_t)
         return x
+    
+
+class GCN_1_layer(torch.nn.Module):
+    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
+                 dropout):
+        super(GCN, self).__init__()
+
+        self.convs = torch.nn.ModuleList()
+        self.convs.append(
+            GCNConv(in_channels, out_channels, normalize=False))
+
+
+    def forward(self, x, adj_t):
+        x = self.convs[0](x, adj_t)
+        return x
 
 
 class LinkPredictor(torch.nn.Module):
@@ -214,9 +229,27 @@ class LinkPredictor(torch.nn.Module):
             x = F.dropout(x, p=self.dropout, training=self.training)
         x = self.lins[-1](x)
         return torch.sigmoid(x)
+    
+
+class LinkPredictor_1_layer(torch.nn.Module):
+    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
+                 dropout):
+        super(LinkPredictor, self).__init__()
+
+        self.lins = torch.nn.ModuleList()
+        self.lins.append(torch.nn.Linear(in_channels, out_channels))
+
+    def reset_parameters(self):
+        for lin in self.lins:
+            lin.reset_parameters()
+
+    def forward(self, x_i, x_j):
+        x = x_i * x_j
+        x = self.lins[0](x)
+        return torch.sigmoid(x)
 
 
-def train(model, predictor: LinkPredictor, data, split_edge, optimizer, batch_size: int, experiment, epoch: int, step: int, seed: int, one_batch_training: bool = False):
+def train(model, predictor, data, split_edge, optimizer, batch_size: int, experiment, epoch: int, step: int, seed: int, one_batch_training: bool = False):
     model.train()
     predictor.train()
 
@@ -270,7 +303,7 @@ def train(model, predictor: LinkPredictor, data, split_edge, optimizer, batch_si
 
 
 @torch.no_grad()
-def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evaluator, evaluator_roc_auc: Evaluator, quali_evaluator: Quali_Evaluator, batch_size: int, experiment: Experiment, epoch: int, final_evaluation: bool = False):
+def test(model, predictor, data, split_edge, evaluator_mrr: Evaluator, evaluator_roc_auc: Evaluator, quali_evaluator: Quali_Evaluator, batch_size: int, experiment: Experiment, epoch: int, final_evaluation: bool = False):
 
     predictor.eval()
     h = model(data.x, data.adj_t)
@@ -679,8 +712,12 @@ def test(model, predictor: LinkPredictor, data, split_edge, evaluator_mrr: Evalu
 
 
 def init_gnn_model(args: dict, data: torch.tensor, device: str):
-    if args.model_architecture == "GCN":
+    if args.model_architecture == "GCN" and args.num_layers !=1:
         model = GCN(data.num_features, args.hidden_channels,
+                    args.hidden_channels, args.num_layers,
+                    args.dropout).to(device)
+    elif args.model_architecture == "GCN" and args.num_layers ==1:
+        model = GCN_1_layer(data.num_features, args.hidden_channels,
                     args.hidden_channels, args.num_layers,
                     args.dropout).to(device)
     elif args.model_architecture == "GCN_NGNN":
@@ -702,7 +739,11 @@ def load_models(args, data, device):
     # init gnn node embedding
     model = init_gnn_model(args, data, device)
     # init model for link prediction
-    predictor = LinkPredictor(args.hidden_channels, args.hidden_channels, 1,
+    if args.num_layers != 1:
+        predictor = LinkPredictor(args.hidden_channels, args.hidden_channels, 1,
+                              args.num_layers, args.dropout).to(device)
+    else:
+        predictor = LinkPredictor_1_layer(args.hidden_channels, args.hidden_channels, 1,
                               args.num_layers, args.dropout).to(device)
 
     # load any previous checkpoints
