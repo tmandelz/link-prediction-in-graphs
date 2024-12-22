@@ -55,7 +55,7 @@ Hyperparametertuning:
 		Finetune Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh --project_name TUNE-GCN-Finetune --run_name 1_TUNE_RUN --epochs 25 --dataset ogbn-arxiv --model_architecture GCN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --model_path ./modelling/gnn/gcn_pretrain_long200_model.pth --predictor_path ./modelling/gnn/gcn_pretrain_long200_predictor.pth --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Finetune_1_TUNE_RUN.json
 			bash additional/i4ds_cluster/train_models.sh --project_name TUNE-GCN-Finetune --run_name 2_TUNE_RUN --epochs 25 --dataset ogbn-arxiv --model_architecture GCN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --hidden_channels 384 --num_layers 2 --model_path ./modelling/gnn/gcn_pretrain_long200_model.pth --predictor_path ./modelling/gnn/gcn_pretrain_long200_predictor.pth --parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-GCN-Finetune_2_TUNE_RUN.json
-	GraphSage (NEEDS CHECKs if paramater are more or less good!!!)
+	GraphSage
 		Reference Hyperparametertune:
 			bash additional/i4ds_cluster/train_models.sh 
 			--project_name TUNE-SAGE-Reference 
@@ -302,6 +302,54 @@ Train optimal models:
 			--predictor_path ./modelling/gnn/gin_pretrain_long200_predictor.pth
 
 Fehlerabschätzung multiple runs (for each model?)
+
+
+1 layer GCN GRID:
+	Reference Hyperparametertune:
+		bash additional/i4ds_cluster/train_models.sh 
+		--project_name TUNE-GCN-Reference_1_layer
+		--run_name 1_TUNE_RUN
+		--epochs 150 
+		--dataset ogbn-arxiv 
+		--model_architecture GCN 
+		--one_batch_training False 
+		--freeze_model False 
+		--save_model False 
+		--eval_n_hop_computational_graph 0 
+		--parameter_tuning_param_grid parameter_tuning_param_grid_TUNE-GCN-Reference_1_layer_1_TUNE_RUN.json
+
+GraphSage BIGGER:
+		Reference Hyperparametertune:
+			bash additional/i4ds_cluster/train_models.sh 
+			--project_name TUNE-SAGE-Reference 
+			--run_name 1_TUNE_RUN
+			--epochs 150 
+			--dataset ogbn-arxiv 
+			--model_architecture SAGE 
+			--one_batch_training False 
+			--freeze_model False 
+			--save_model False 
+			--hidden_channels 3072
+			--num_layers 2
+			--eval_n_hop_computational_graph 0 
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Reference_1_TUNE_RUN.json
+
+		Pretrain Hyperparametertuning:
+			bash additional/i4ds_cluster/train_models_big_gpus.sh
+			--project_name TUNE-SAGE-Pretrain 
+			--run_name 1_TUNE_RUN
+			--epochs 25 
+			--dataset ogbn-papers100M 
+			--model_architecture SAGE 
+			--one_batch_training False 
+			--freeze_model False 
+			--save_model False 
+			--eval_n_hop_computational_graph 0 
+			--hidden_channels 3072
+			--num_layers 2
+			--parameter_tuning_param_grid parameter_tuning_param_grid_TUNE-SAGE-Pretrain_BIGGER_1_TUNE_RUN.json
+
+
 
 
 GPU SIZE TEST:
