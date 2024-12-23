@@ -189,15 +189,13 @@ class GCN(torch.nn.Module):
         return x
     
 
-class GCN_1_layer(torch.nn.Module):
-    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
-                 dropout):
+class GCN_1_Layer(torch.nn.Module):
+    def __init__(self, in_channels, out_channels, dropout):
         super(GCN, self).__init__()
 
         self.convs = torch.nn.ModuleList()
         self.convs.append(
             GCNConv(in_channels, out_channels, normalize=False))
-
 
     def forward(self, x, adj_t):
         x = self.convs[0](x, adj_t)
@@ -231,9 +229,8 @@ class LinkPredictor(torch.nn.Module):
         return torch.sigmoid(x)
     
 
-class LinkPredictor_1_layer(torch.nn.Module):
-    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
-                 dropout):
+class LinkPredictor_1_Layer(torch.nn.Module):
+    def __init__(self, in_channels, out_channels, dropout):
         super(LinkPredictor, self).__init__()
 
         self.lins = torch.nn.ModuleList()
@@ -712,14 +709,14 @@ def test(model, predictor, data, split_edge, evaluator_mrr: Evaluator, evaluator
 
 
 def init_gnn_model(args: dict, data: torch.tensor, device: str):
-    if args.model_architecture == "GCN" and args.num_layers !=1:
+    if args.model_architecture == "GCN" and args.num_layers != 1:
         model = GCN(data.num_features, args.hidden_channels,
                     args.hidden_channels, args.num_layers,
                     args.dropout).to(device)
-    elif args.model_architecture == "GCN" and args.num_layers ==1:
-        model = GCN_1_layer(data.num_features, args.hidden_channels,
-                    args.hidden_channels, args.num_layers,
-                    args.dropout).to(device)
+    elif args.model_architecture == "GCN" and args.num_layers == 1:
+        model = GCN_1_Layer(data.num_features, args.hidden_channels,
+                            args.hidden_channels, args.num_layers,
+                            args.dropout).to(device)
     elif args.model_architecture == "GCN_NGNN":
         model = GCN_NGNN(data.num_features, args.hidden_channels,
                          args.hidden_channels, args.num_layers, args.dropout, args.ngnn_type).to(device)
@@ -729,8 +726,8 @@ def init_gnn_model(args: dict, data: torch.tensor, device: str):
                      args.dropout).to(device)
     elif args.model_architecture == "GIN":
         model = GIN(data.num_features, args.hidden_channels,
-                     args.hidden_channels, args.num_layers,
-                     args.dropout).to(device)
+                    args.hidden_channels, args.num_layers,
+                    args.dropout).to(device)
 
     return model
 
@@ -741,10 +738,10 @@ def load_models(args, data, device):
     # init model for link prediction
     if args.num_layers != 1:
         predictor = LinkPredictor(args.hidden_channels, args.hidden_channels, 1,
-                              args.num_layers, args.dropout).to(device)
+                                  args.num_layers, args.dropout).to(device)
     else:
-        predictor = LinkPredictor_1_layer(args.hidden_channels, args.hidden_channels, 1,
-                              args.num_layers, args.dropout).to(device)
+        predictor = LinkPredictor_1_Layer(args.hidden_channels, args.hidden_channels, 1,
+                                          args.num_layers, args.dropout).to(device)
 
     # load any previous checkpoints
     if isinstance(args.model_path, str):
