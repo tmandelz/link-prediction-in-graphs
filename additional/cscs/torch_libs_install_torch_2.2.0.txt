@@ -1,2 +1,3 @@
 pip install torch==2.2.0 -f https://data.pyg.org/whl/torch-2.2.0+cu121.html
 pip install torch-scatter torch-sparse torch_geometric -f https://data.pyg.org/whl/torch-2.2.0+cu121.html
+pip install requirements -r requirements.txt

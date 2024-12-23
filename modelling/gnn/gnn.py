@@ -190,8 +190,9 @@ class GCN(torch.nn.Module):
     
 
 class GCN_1_Layer(torch.nn.Module):
-    def __init__(self, in_channels, out_channels, dropout):
-        super(GCN, self).__init__()
+    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
+                 dropout):
+        super(GCN_1_Layer, self).__init__()
 
         self.convs = torch.nn.ModuleList()
         self.convs.append(
@@ -230,8 +231,9 @@ class LinkPredictor(torch.nn.Module):
     
 
 class LinkPredictor_1_Layer(torch.nn.Module):
-    def __init__(self, in_channels, out_channels, dropout):
-        super(LinkPredictor, self).__init__()
+    def __init__(self, in_channels, hidden_channels, out_channels, num_layers,
+                 dropout):
+        super(LinkPredictor_1_Layer, self).__init__()
 
         self.lins = torch.nn.ModuleList()
         self.lins.append(torch.nn.Linear(in_channels, out_channels))
