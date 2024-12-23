@@ -215,7 +215,7 @@ Train optimal models:
 			--freeze_model False 
 			--save_model True 
 			--eval_n_hop_computational_graph 0 
-			--epoch_checkpoints 5
+			--epoch_checkpoints 50
 			--model_path ./modelling/gnn/gcn_pretrain_long200_model.pth 
 			--predictor_path ./modelling/gnn/gcn_pretrain_long200_predictor.pth
 	SAGE:
@@ -256,7 +256,7 @@ Train optimal models:
 			--freeze_model False 
 			--save_model True 
 			--eval_n_hop_computational_graph 0 
-			--epoch_checkpoints 5
+			--epoch_checkpoints 50
 			--model_path ./modelling/gnn/sage_pretrain_long200_model.pth 
 			--predictor_path ./modelling/gnn/sage_pretrain_long200_predictor.pth
 	GIN:
@@ -297,7 +297,7 @@ Train optimal models:
 			--freeze_model False 
 			--save_model True 
 			--eval_n_hop_computational_graph 0 
-			--epoch_checkpoints 5
+			--epoch_checkpoints 50
 			--model_path ./modelling/gnn/gin_pretrain_long200_model.pth 
 			--predictor_path ./modelling/gnn/gin_pretrain_long200_predictor.pth
 
