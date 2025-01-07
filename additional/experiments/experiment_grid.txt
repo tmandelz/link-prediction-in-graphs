@@ -356,3 +356,5 @@ GPU SIZE TEST:
 	GCN Reference:
 		bash additional/i4ds_cluster/train_models_big_gpus.sh --project_name gpu-size-ogbn-arxiv --run_name gpu-size-ogbn-arxiv_4096 --epochs 2 --dataset ogbn-arxiv --model_architecture GCN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --batch_size 52109 --lr 0.000686411 --num_layers 2 --hidden_channels 4096
 		bash additional/i4ds_cluster/train_models.sh --project_name gpu-size-ogbn-arxiv --run_name gpu-size-ogbn-arxiv_littlegpu_768 --epochs 2 --dataset ogbn-arxiv --model_architecture GCN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --batch_size 52109 --lr 0.000686411 --num_layers 2 --hidden_channels 768
+
+		bash additional/i4ds_cluster/train_models_big_gpus.sh --project_name gpu-size-ogbn-papers100M --run_name gpu-size-ogbn-papers100M_512 --epochs 2 --dataset ogbn-papers100M --model_architecture GCN --one_batch_training False --freeze_model False --save_model False --eval_n_hop_computational_graph 0 --batch_size 52109 --lr 0.000686411 --num_layers 2 --hidden_channels 512
