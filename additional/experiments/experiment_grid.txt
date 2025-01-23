@@ -385,12 +385,28 @@ GraphSage BIGGER:
 			--one_batch_training False 
 			--freeze_model False 
 			--save_model False 
-			--hidden_channels 3072
+			--hidden_channels 1024
 			--num_layers 2
 			--eval_n_hop_computational_graph 0 
-			--model_path ./modelling/gnn/gin_pretrain_long200_model.pth 
-			--predictor_path ./modelling/gnn/gin_pretrain_long200_predictor.pth
+			--model_path ./modelling/gnn/sage_pretrain_long_bigger195_model.pth 
+			--predictor_path ./modelling/gnn/sage_pretrain_long_bigger195_predictor.pth
 			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Finetune_Bigger_1_TUNE_RUN.json
+
+			bash additional/i4ds_cluster/train_models.sh 
+			--project_name TUNE-SAGE-Finetune_Bigger 
+			--run_name 2_TUNE_RUN
+			--epochs 150 
+			--dataset ogbn-arxiv 
+			--model_architecture SAGE 
+			--one_batch_training False 
+			--freeze_model False 
+			--save_model False 
+			--hidden_channels 1024
+			--num_layers 2
+			--eval_n_hop_computational_graph 0 
+			--model_path ./modelling/gnn/sage_pretrain_long_bigger195_model.pth 
+			--predictor_path ./modelling/gnn/sage_pretrain_long_bigger195_predictor.pth
+			--parameter_tuning_param_grid ./modelling/gnn/parameter_tuning_param_grid_TUNE-SAGE-Finetune_Bigger_2_TUNE_RUN.json
 
 
 
