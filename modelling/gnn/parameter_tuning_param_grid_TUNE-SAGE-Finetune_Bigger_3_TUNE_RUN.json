@@ -1,0 +1,14 @@
+{
+  "batch_size": {
+    "max": 15000,
+    "min": 3750,
+    "scaling_type": "linear",
+    "type": "integer"
+  },
+  "lr": {
+    "max": 0.002,
+    "min": 0.0009,
+    "scaling_type": "linear",
+    "type": "double"
+  }
+}
