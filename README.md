@@ -66,9 +66,9 @@ Used to pretrain models for later finetuning.
 ## Featured Files
 
 * [Main Explorative Data Analysis Notebook](/EDA/2_eda_dataset.ipynb) - Includes all explorative data analyses for the datasets.
-* [Main Qualitative Evaluation Notebook](/evaluation/1_evaluation_build_up.ipynb) - Explains the qualitative evaluation plots with example data.
-* [Main Quantitave Evaluation Notebook](evaluation/4_visualise_results_training_curves.ipynb) - Shows all quantitative visualisations and result aggragations used in this research.
+* [Main Quantitave Evaluation Notebook](evaluation/5_visualise_results_training_curves_puplication.ipynb) - Shows all quantitative visualisations and result aggragations used in this research.
 * [Main GNN Pipeline File](/modelling/gcn/gnn.py) - Is the main training pipeline file for our GNN models.
+* [Main Cosine Similarity Heuristic Pipeline File](additional/experiments/experiment_grid.txt) - Here are all the experiment hyperparameters.
 * [Main Cosine Similarity Heuristic Pipeline File](/modelling/heuristics/baseline_cosine_similarity.ipynb) - Includes the source code for the cosine similarity heuristic.
 * [Main Common Neighbor Heuristic File](/modelling/heuristics/cn_baseline.py) - Includes the source code for the common neighbor heuristic.
 
@@ -99,7 +99,7 @@ You need to change the API keys of comet-ml to yours, change your project and ru
 To reproduce our GraphSAGE [reference model](https://www.comet.com/transfer-learning-link-prediction/long-reference/e7eddb5ce3104801aa355a461b0540c2) execute the following code.
 
 ``` sh
-gnn.py --project_name "your-comet-ml-project" --run_name "your-run-name" --epochs 2100 --dataset ogbn-arxiv --batch_size 38349 --lr 0.0004 --num_layers 2 --hidden_channels 512 --model_architecture GCN --one_batch_training False --freeze_model False --save_model True --eval_n_hop_computational_graph 2 --epoch_checkpoints 10
+gnn.py --project_name "your-comet-ml-project" --run_name "your-run-name" --epochs 2500 --dataset ogbn-arxiv --batch_size 35000 --lr 0.00085 --num_layers 2 --hidden_channels 384 --model_architecture SAGE --one_batch_training False --freeze_model False --save_model True --eval_n_hop_computational_graph 0 --epoch_checkpoints 50 --model_path ./modelling/gnn/sage_ref_long2500_model.pth --predictor_path ./modelling/gnn/sage_ref_long2500_predictor.pth
 ```
 
 ## Further Resources
